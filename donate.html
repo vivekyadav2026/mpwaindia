@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Now - TACC</title>
+    <meta name="description" content="Support Team Against Corruption and Crime by donating.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .donate-hero {
+            background: linear-gradient(rgba(10, 25, 47, 0.7), rgba(10, 25, 47, 0.7)), url('assets/images/heritage_bg_1781000207028.png') center/cover;
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid var(--primary-red);
+        }
+        .donate-hero h1 {
+            font-size: 2.5rem;
+            margin-top: 10px;
+        }
+        .donate-hero p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ddd;
+        }
+
+        .donate-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .donate-info h2 {
+            color: var(--primary-blue);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .donate-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .donate-detail-item {
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .donate-qr-poster {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .donate-qr-poster {
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Action Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <div class="top-links">
+                <a href="#" class="dyn-phone1 preserve-icon">Help Line : +91 98147 66820</a>
+            </div>
+            <!--<div class="top-actions">-->
+            <!--    <a href="#" class="btn-top">BE A MEMBER</a>-->
+            <!--    <a href="#" class="btn-top">BECOME STATE HEAD</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-container" style="text-decoration: none;">
+                <img src="assets/logo.png" alt="TACC Logo" class="nav-logo">
+                <div class="logo-text-block">
+                    <span class="logo-title">TEAM AGAINST CORRUPTION AND CRIME</span>
+                    <span class="logo-subtitle">Regd. Under Government of India</span>
+                </div>
+            </a>
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="index.html#about">About Us <i class="fas fa-chevron-down" style="font-size:0.8em; margin-left:5px;"></i></a>
+                        <div class="dropdown-content">
+                            <a href="index.html#about">About TACC</a>
+                            <a href="team.html">Our Team</a>
+                        </div>
+                    </li>
+                    <li><a href="donate.html" class="active">Donate Now</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <div class="hero-slider">
+        <div class="slide active" style="background-image: url('assets/images/banner_2.jpg?v=2.2');"></div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner-blue">
+        <h2 class="banner-title">TEAM AGAINST CORRUPTION AND CRIME</h2>
+    </div>
+    <div class="banner-red-text">
+        <div class="container">
+            <p>TO MAKE A CORRUPTION FREE INDIA, COOPERATION OF POLICE, ADMINISTRATION AND PUBLIC IS THE PRIORITY OF TEAM AGAINST CORRUPTION AND CRIME.</p>
+        </div>
+    </div>
+
+    <!-- Donate Content Section -->
+    <section class="donate-section">
+        <div class="container grid-2 align-center">
+            
+            <!-- Left Info Side -->
+            <div class="donate-info">
+                <h2>Donate Now</h2>
+                
+                <div class="donate-details">
+                    <div class="donate-detail-item">
+                        ACCOUNT NAME – <span class="dyn-bank-acc-name">TEAM AGAINST CORRUPTION AND CRIME</span>
+                    </div>
+                    <div class="donate-detail-item">
+                        BANK NAME – <span class="dyn-bank-name">STATE BANK OF INDIA</span>
+                    </div>
+                    <div class="donate-detail-item">
+                        BRANCH NAME – <span class="dyn-bank-branch">NEW DELHI BRANCH</span>
+                    </div>
+                    <div class="donate-detail-item">
+                        ACCOUNT NUMBER – <span class="dyn-bank-acc-no">12345678901</span>
+                    </div>
+                    <div class="donate-detail-item">
+                        IFSC CODE – <span class="dyn-bank-ifsc">SBIN0001234</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right QR Code Side -->
+            <div class="donate-qr">
+                <!-- QR payment poster -->
+                <img src="assets/images/donate_qr_poster_1781000295180.png" alt="Donate QR Code" class="donate-qr-poster" id="dynamic-donate-qr">
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container grid-4">
+            <div class="footer-col">
+                <div class="logo-container mb-20">
+                    <img src="assets/logo.png" alt="Logo" class="footer-logo">
+                    <span style="color:white; font-weight:bold; font-size:1.2rem;">TACC</span>
+                </div>
+                <p>Building a nation free from corruption, crime, fear, and discrimination. Empowering citizens for a better tomorrow.</p>
+                <div class="social-links mt-20">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p class="dyn-address preserve-icon"><i class="fas fa-map-marker-alt"></i> Ludhiana, Punjab, India</p>
+                <p class="dyn-email preserve-icon"><i class="fas fa-envelope"></i> info@taccindia.org</p>
+                <p class="dyn-phone1 preserve-icon"><i class="fas fa-phone-alt"></i> +91 98147 66820</p>
+            </div>
+            <div class="footer-col">
+                <h3>Location</h3>
+                <iframe src="https://www.google.com/maps?q=30.874538,75.8619576&z=17&hl=en&output=embed" width="100%" height="200" style="border:0; border-radius:4px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Team Against Corruption and Crime. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js?v=2.1"></script>
+</body>
+</html>

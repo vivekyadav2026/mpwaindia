@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - TACC</title>
+    <meta name="description" content="Meet the leadership team of Team Against Corruption and Crime.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Team Page Specific Styles */
+        .team-hero {
+            background: linear-gradient(rgba(10, 25, 47, 0.7), rgba(10, 25, 47, 0.7)), url('assets/images/heritage_bg_1781000207028.png') center/cover;
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid var(--primary-red);
+        }
+        .team-hero h1 {
+            font-size: 2.5rem;
+            margin-top: 10px;
+        }
+        .team-hero p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ddd;
+        }
+        
+        .president-poster {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            border: 1px solid #ccc;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .president-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .president-block img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-red);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .president-info {
+            text-align: left;
+            flex: 1;
+        }
+
+        .president-info h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .president-info h4 {
+            color: var(--primary-red);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .president-info p {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .team-grid-large {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .president-block { flex-direction: column; text-align: center; }
+            .president-info { text-align: center; }
+            .team-grid-large { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .team-grid-large { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Action Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <div class="top-links">
+                <a href="#" class="dyn-phone1 preserve-icon">Help Line : +91 98147 66820</a>
+            </div>
+            <!--<div class="top-actions">-->
+            <!--    <a href="#" class="btn-top">BE A MEMBER</a>-->
+            <!--    <a href="#" class="btn-top">BECOME STATE HEAD</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-container" style="text-decoration: none;">
+                <img src="assets/logo.png" alt="TACC Logo" class="nav-logo">
+                <div class="logo-text-block">
+                    <span class="logo-title">TEAM AGAINST CORRUPTION AND CRIME</span>
+                    <span class="logo-subtitle">Regd. Under Government of India</span>
+                </div>
+            </a>
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="index.html#about" class="active">About Us <i class="fas fa-chevron-down" style="font-size:0.8em; margin-left:5px;"></i></a>
+                        <div class="dropdown-content">
+                            <a href="index.html#about">About TACC</a>
+                            <a href="team.html" class="active">Our Team</a>
+                        </div>
+                    </li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <div class="hero-slider">
+        <div class="slide active" style="background-image: url('assets/images/banner_1.jpg?v=2.2');"></div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner-blue">
+        <h2 class="banner-title">TEAM AGAINST CORRUPTION AND CRIME</h2>
+    </div>
+    <div class="banner-red-text">
+        <div class="container">
+            <p>TO MAKE A CORRUPTION FREE INDIA, COOPERATION OF POLICE, ADMINISTRATION AND PUBLIC IS THE PRIORITY OF TEAM AGAINST CORRUPTION AND CRIME.</p>
+        </div>
+    </div>
+
+    <!-- Team Content Section -->
+    <section class="team-section text-center">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="title-underline-center"></div>
+
+     
+            <!-- President Detail Block -->
+            <div class="president-block" id="dynamic-team-president">
+                <!-- Dynamically populated via JS -->
+            </div>
+
+            <!-- Full Team Grid -->
+            <div class="team-grid-large" id="dynamic-team-grid">
+                <!-- Dynamically populated via JS -->
+            </div>
+            
+        </div>
+    </section>
+ <!-- Member Verification Portal -->
+    <section id="verify" class="verification-section">
+        <div class="container">
+            <div class="section-title-wrapper text-center">
+                <h2 class="section-title">Member Verification Portal</h2>
+                <div class="title-underline-center"></div>
+            </div>
+            <div class="verify-box">
+                <p class="text-center">Enter a unique TACC ID to verify membership and view details.</p>
+                <div class="search-container">
+                    <input type="text" id="memberIdInput" placeholder="Enter Unique ID (e.g. Regd.no.Tacc/00/00001)" autocomplete="off">
+                    <button id="searchBtn" class="btn-solid-red"><i class="fas fa-search"></i> Verify</button>
+                </div>
+                <div id="searchMessage" class="search-message"></div>
+                <div id="idCardResult" class="id-card-container hidden">
+                    <div class="id-card">
+                        <div class="id-header">
+                            <img src="assets/logo.png" alt="Logo" class="id-small-logo">
+                            <div>
+                                <h4>TEAM AGAINST CORRUPTION AND CRIME</h4>
+                                <span>Regd. Under Government of India</span>
+                            </div>
+                        </div>
+                        <div class="id-body">
+                            <div class="id-photo-area">
+                                <img id="memberPhoto" src="" alt="Member Photo" class="member-photo">
+                                <div class="id-badge-number" id="displayMemberId"></div>
+                            </div>
+                            <div class="id-details-area">
+                                <h3 id="memberName" class="member-name"></h3>
+                                <p id="memberDesignation" class="member-designation"></p>
+                                <div class="details-grid">
+                                    <div class="detail-item">
+                                        <span class="detail-label">State:</span>
+                                        <span class="detail-value" id="memberState"></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Validity:</span>
+                                        <span class="detail-value" id="memberValidity"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="id-footer">
+                            Regd. Under Govt. of India
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container grid-4">
+            <div class="footer-col">
+                <div class="logo-container mb-20">
+                    <img src="assets/logo.png" alt="Logo" class="footer-logo">
+                    <span style="color:white; font-weight:bold; font-size:1.2rem;">TACC</span>
+                </div>
+                <p>Building a nation free from corruption, crime, fear, and discrimination. Empowering citizens for a better tomorrow.</p>
+                <div class="social-links mt-20">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p class="dyn-address preserve-icon"><i class="fas fa-map-marker-alt"></i> Ludhiana, Punjab, India</p>
+                <p class="dyn-email preserve-icon"><i class="fas fa-envelope"></i> info@taccindia.org</p>
+                <p class="dyn-phone1 preserve-icon"><i class="fas fa-phone-alt"></i> +91 98147 66820</p>
+            </div>
+            <div class="footer-col">
+                <h3>Location</h3>
+                <iframe src="https://www.google.com/maps?q=30.874538,75.8619576&z=17&hl=en&output=embed" width="100%" height="200" style="border:0; border-radius:4px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Team Against Corruption and Crime. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js?v=2.1"></script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates & Recognitions - Team Against Corruption and Crime (TACC)</title>
+    <meta name="description" content="Official registration and pledge certificates of TACC issued by Government of India portals.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(10,25,47,0.88) 0%, rgba(211,47,47,0.75) 100%),
+                        url('assets/images/banner_1.jpg?v=2.2') center/cover no-repeat;
+            padding: 90px 0 70px;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid var(--primary-red);
+        }
+        .page-hero .breadcrumb {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .page-hero .breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; }
+        .page-hero .breadcrumb a:hover { color: #fff; }
+        .page-hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+        .page-hero p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Certificates Section */
+        .cert-section { padding: 60px 0; background: #f7f8fa; }
+        
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .cert-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .cert-img-container {
+            position: relative;
+            width: 100%;
+            padding-top: 70.7%; /* 1:1.414 Aspect Ratio for Certificates */
+            background: #eaeaea;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cert-img-container img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: contain;
+            background: #fff;
+            transition: transform 0.4s;
+        }
+
+        .cert-card:hover .cert-img-container img {
+            transform: scale(1.03);
+        }
+
+        .cert-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10,25,47,0.4);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cert-card:hover .cert-overlay { opacity: 1; }
+
+        .cert-zoom-btn {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transform: scale(0.8);
+            transition: transform 0.3s;
+        }
+
+        .cert-card:hover .cert-zoom-btn { transform: scale(1); }
+
+        .cert-details {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cert-details h3 {
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .cert-details p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .cert-btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .cert-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .cert-btn-red {
+            background: var(--primary-red);
+            color: #fff;
+        }
+        .cert-btn-red:hover {
+            background: var(--dark-red);
+        }
+
+        .cert-btn-outline {
+            border: 1.5px solid var(--primary-blue);
+            color: var(--primary-blue);
+            background: transparent;
+        }
+        .cert-btn-outline:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-inner {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .lightbox-inner img {
+            max-width: 85vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        .lightbox-close {
+            position: fixed;
+            top: 20px; right: 30px;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            opacity: 0.8;
+            z-index: 10000;
+        }
+        .lightbox-close:hover { opacity: 1; color: var(--primary-red); }
+        
+        .lightbox-caption {
+            color: #ccc;
+            margin-top: 14px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .cert-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 650px) {
+            .cert-grid { grid-template-columns: 1fr; }
+            .page-hero h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <div class="top-links">
+                <a href="#" class="dyn-phone1 preserve-icon">Help Line : +91 98147 66820</a>
+            </div>
+            <!--<div class="top-actions">-->
+            <!--    <a href="#" class="btn-top">BE A MEMBER</a>-->
+            <!--    <a href="#" class="btn-top">BECOME STATE HEAD</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-container" style="text-decoration: none;">
+                <img src="assets/logo.png" alt="TACC Logo" class="nav-logo">
+                <div class="logo-text-block">
+                    <span class="logo-title">TEAM AGAINST CORRUPTION AND CRIME</span>
+                    <span class="logo-subtitle">Regd. Under Government of India</span>
+                </div>
+            </a>
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="index.html#about">About Us <i class="fas fa-chevron-down" style="font-size:0.8em; margin-left:5px;"></i></a>
+                        <div class="dropdown-content">
+                            <a href="index.html#about">About TACC</a>
+                            <a href="team.html">Our Team</a>
+                        </div>
+                    </li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="certificates.html" class="active">Certificates</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <div class="hero-slider">
+        <div class="slide active" style="background-image: url('assets/images/banner_3.jpg?v=2.2');"></div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner-blue">
+        <h2 class="banner-title">TEAM AGAINST CORRUPTION AND CRIME</h2>
+    </div>
+    <div class="banner-red-text">
+        <div class="container">
+            <p>TO MAKE A CORRUPTION FREE INDIA, COOPERATION OF POLICE, ADMINISTRATION AND PUBLIC IS THE PRIORITY OF TEAM AGAINST CORRUPTION AND CRIME.</p>
+        </div>
+    </div>
+
+    <!-- Certificates Grid -->
+    <section class="cert-section">
+        <div class="container">
+            <div class="cert-grid" id="dynamic-certificates-all">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container grid-4">
+            <div class="footer-col">
+                <div class="logo-container mb-20">
+                    <img src="assets/logo.png" alt="Logo" class="footer-logo">
+                    <span style="color:white; font-weight:bold; font-size:1.2rem;">TACC</span>
+                </div>
+                <p>Building a nation free from corruption, crime, fear, and discrimination.</p>
+                <div class="social-links mt-20">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p class="dyn-address preserve-icon"><i class="fas fa-map-marker-alt"></i> Ludhiana, Punjab, India</p>
+                <p class="dyn-email preserve-icon"><i class="fas fa-envelope"></i> info@taccindia.org</p>
+                <p class="dyn-phone1 preserve-icon"><i class="fas fa-phone-alt"></i> +91 98147 66820</p>
+            </div>
+            <div class="footer-col">
+                <h3>Location</h3>
+                <iframe src="https://www.google.com/maps?q=30.874538,75.8619576&z=17&hl=en&output=embed" width="100%" height="200" style="border:0; border-radius:4px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Team Against Corruption and Crime. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <div class="lightbox-inner">
+            <img id="lightboxImg" src="" alt="Certificate View">
+            <p class="lightbox-caption" id="lightboxCaption"></p>
+        </div>
+    </div>
+
+    <script src="js/app.js?v=2.1"></script>
+    <script>
+        const overlay = document.getElementById('lightboxOverlay');
+        const img = document.getElementById('lightboxImg');
+        const caption = document.getElementById('lightboxCaption');
+        const closeBtn = document.getElementById('lightboxClose');
+
+        function openLightbox(src, text) {
+            img.src = src;
+            caption.textContent = text;
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            overlay.classList.remove('active');
+            img.src = '';
+            document.body.style.overflow = '';
+        }
+
+        closeBtn.addEventListener('click', closeLightbox);
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>

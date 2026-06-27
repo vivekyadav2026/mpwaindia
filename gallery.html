@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Team Against Corruption and Crime (TACC)</title>
+    <meta name="description" content="Photo Gallery of Team Against Corruption and Crime - TACC campaigns, rallies, events and activities.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(10,25,47,0.88) 0%, rgba(211,47,47,0.75) 100%),
+                        url('assets/images/banner_1.jpg?v=2.2') center/cover no-repeat;
+            padding: 90px 0 70px;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid var(--primary-red);
+        }
+        .page-hero .breadcrumb {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .page-hero .breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; }
+        .page-hero .breadcrumb a:hover { color: #fff; }
+        .page-hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+        .page-hero p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-bar {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-btn {
+            padding: 9px 22px;
+            border: 2px solid #ddd;
+            background: #fff;
+            border-radius: 30px;
+            font-size: 0.87rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: #555;
+            transition: all 0.25s;
+            font-family: 'Roboto', sans-serif;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+            color: #fff;
+        }
+
+        /* Gallery Grid */
+        .gallery-section { padding: 60px 0; background: #f7f8fa; }
+        .gallery-count {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+        .gallery-masonry {
+            columns: 4;
+            column-gap: 18px;
+        }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+        }
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.4s;
+        }
+        .gallery-item:hover img { transform: scale(1.04); }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10,25,47,0.85) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: flex-end;
+            padding: 18px;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-overlay-text {
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .gallery-overlay-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background: rgba(211,47,47,0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .gallery-item:hover .gallery-overlay-icon { opacity: 1; }
+
+        /* Dynamic gallery items that are hidden */
+        .gallery-item.hidden-item { display: none; }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-inner {
+            position: relative;
+            max-width: 92vw;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .lightbox-inner img {
+            max-width: 90vw;
+            max-height: 82vh;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+        .lightbox-close {
+            position: fixed;
+            top: 20px; right: 30px;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            opacity: 0.8;
+            z-index: 10000;
+            line-height: 1;
+        }
+        .lightbox-close:hover { opacity: 1; color: #D32F2F; }
+        .lightbox-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: #fff;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10000;
+        }
+        .lightbox-nav:hover { background: var(--primary-red); border-color: var(--primary-red); }
+        .lightbox-nav.prev { left: 20px; }
+        .lightbox-nav.next { right: 20px; }
+        .lightbox-caption {
+            color: #ccc;
+            margin-top: 14px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .lightbox-counter {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            margin-top: 6px;
+        }
+
+        /* Upload info section */
+        .dynamic-notice {
+            background: linear-gradient(135deg, #0A192F, #112240);
+            color: #fff;
+            padding: 50px 0;
+            text-align: center;
+        }
+        .dynamic-notice h3 { font-size: 1.4rem; margin-bottom: 10px; }
+        .dynamic-notice p { color: #8892B0; font-size: 0.9rem; max-width: 500px; margin: 0 auto 20px; }
+
+        @media (max-width: 1024px) { .gallery-masonry { columns: 3; } }
+        @media (max-width: 768px) { 
+            .gallery-masonry { columns: 2; }
+            .page-hero h1 { font-size: 2rem; }
+        }
+        @media (max-width: 480px) { .gallery-masonry { columns: 1; } }
+    </style>
+</head>
+<body>
+
+    <!-- Top Action Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <div class="top-links">
+                <a href="#" class="dyn-phone1 preserve-icon">Help Line : +91 98147 66820</a>
+            </div>
+            <!--<div class="top-actions">-->
+            <!--    <a href="#" class="btn-top">BE A MEMBER</a>-->
+            <!--    <a href="#" class="btn-top">BECOME STATE HEAD</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-container" style="text-decoration: none;">
+                <img src="assets/logo.png" alt="TACC Logo" class="nav-logo">
+                <div class="logo-text-block">
+                    <span class="logo-title">TEAM AGAINST CORRUPTION AND CRIME</span>
+                    <span class="logo-subtitle">Regd. Under Government of India</span>
+                </div>
+            </a>
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="index.html#about">About Us <i class="fas fa-chevron-down" style="font-size:0.8em; margin-left:5px;"></i></a>
+                        <div class="dropdown-content">
+                            <a href="index.html#about">About TACC</a>
+                            <a href="team.html">Our Team</a>
+                        </div>
+                    </li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="gallery.html" class="active">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <div class="hero-slider">
+        <div class="slide active" style="background-image: url('assets/images/banner_1.jpg?v=2.2');"></div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner-blue">
+        <h2 class="banner-title">TEAM AGAINST CORRUPTION AND CRIME</h2>
+    </div>
+    <div class="banner-red-text">
+        <div class="container">
+            <p>TO MAKE A CORRUPTION FREE INDIA, COOPERATION OF POLICE, ADMINISTRATION AND PUBLIC IS THE PRIORITY OF TEAM AGAINST CORRUPTION AND CRIME.</p>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <p class="gallery-count" id="galleryCount">Loading images...</p>
+            <div class="gallery-masonry" id="galleryGrid">
+                <!-- Static images always shown -->
+
+                <div class="gallery-item" data-category="poster" data-src="assets/images/sapat.jpeg" data-caption="Satyanishtaa Shapath Abhiyan — Integrity Oath Campaign">
+                    <img src="assets/images/sapat.jpeg" alt="Satyanishtaa Shapath" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="gallery-overlay-icon"><i class="fas fa-search-plus"></i></div>
+                        <span class="gallery-overlay-text">Satyanishtaa Shapath</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="poster" data-src="assets/images/oath_hindi_1781000633871.png" data-caption="TACC Integrity Oath Poster — Hindi">
+                    <img src="assets/images/oath_hindi_1781000633871.png" alt="Oath Hindi" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="gallery-overlay-icon"><i class="fas fa-search-plus"></i></div>
+                        <span class="gallery-overlay-text">Oath Poster (Hindi)</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Upload Notice -->
+    <div class="dynamic-notice">
+        <div class="container">
+            <h3><i class="fas fa-cloud-upload-alt" style="color:#D32F2F;margin-right:10px;"></i> More Photos Coming Soon</h3>
+            <p>New images from our campaigns and events are regularly added. Manage the gallery from the admin panel.</p>
+            <a href="admin.php" class="btn-solid-red"><i class="fas fa-cog"></i> Manage Gallery</a>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <button class="lightbox-nav prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+        <div class="lightbox-inner">
+            <img id="lightboxImg" src="" alt="">
+            <p class="lightbox-caption" id="lightboxCaption"></p>
+            <p class="lightbox-counter" id="lightboxCounter"></p>
+        </div>
+        <button class="lightbox-nav next" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container grid-4">
+            <div class="footer-col">
+                <div class="logo-container mb-20">
+                    <img src="assets/logo.png" alt="Logo" class="footer-logo">
+                    <span style="color:white; font-weight:bold; font-size:1.2rem;">TACC</span>
+                </div>
+                <p>Building a nation free from corruption, crime, fear, and discrimination.</p>
+                <div class="social-links mt-20">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p class="dyn-address preserve-icon"><i class="fas fa-map-marker-alt"></i> Ludhiana, Punjab, India</p>
+                <p class="dyn-email preserve-icon"><i class="fas fa-envelope"></i> info@taccindia.org</p>
+                <p class="dyn-phone1 preserve-icon"><i class="fas fa-phone-alt"></i> +91 98147 66820</p>
+            </div>
+            <div class="footer-col">
+                <h3>Location</h3>
+                <iframe src="https://www.google.com/maps?q=30.874538,75.8619576&z=17&hl=en&output=embed" width="100%" height="200" style="border:0; border-radius:4px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Team Against Corruption and Crime. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js?v=2.1"></script>
+    <script>
+        // ---- GALLERY DATA ----
+        const staticItems = Array.from(document.querySelectorAll('.gallery-item[data-src]'));
+        let allItems = [...staticItems];
+        let currentIndex = 0;
+
+        // Load dynamic gallery from gallery.json
+        fetch('gallery.json')
+            .then(r => r.json())
+            .then(images => {
+                const container = document.getElementById('galleryGrid');
+                images.forEach((src, i) => {
+                    // Avoid duplicate static images
+                    if (staticItems.some(el => el.dataset.src === src)) return;
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item';
+                    div.dataset.category = 'event';
+                    div.dataset.src = src;
+                    div.dataset.caption = 'TACC — Photo ' + (i + 1);
+                    div.innerHTML = `
+                        <img src="${src}" alt="Gallery Photo" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-overlay-icon"><i class="fas fa-search-plus"></i></div>
+                            <span class="gallery-overlay-text">TACC Photo</span>
+                        </div>`;
+                    container.appendChild(div);
+                });
+                refreshItems();
+            })
+            .catch(() => {
+                refreshItems();
+            });
+
+        function refreshItems() {
+            allItems = Array.from(document.querySelectorAll('.gallery-item[data-src]'));
+            document.getElementById('galleryCount').textContent = allItems.length + ' Photos';
+            attachClickHandlers();
+        }
+
+        // ---- LIGHTBOX ----
+        function attachClickHandlers() {
+            document.querySelectorAll('.gallery-item[data-src]').forEach((item, index) => {
+                item.addEventListener('click', () => openLightbox(index));
+            });
+        }
+
+        function openLightbox(index) {
+            currentIndex = index;
+            const items = Array.from(document.querySelectorAll('.gallery-item[data-src]:not([style*="display: none"])'));
+            const item = items[currentIndex] || allItems[currentIndex];
+            document.getElementById('lightboxImg').src = item.dataset.src;
+            document.getElementById('lightboxCaption').textContent = item.dataset.caption || '';
+            document.getElementById('lightboxCounter').textContent = (currentIndex + 1) + ' / ' + allItems.length;
+            document.getElementById('lightboxOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxOverlay').classList.remove('active');
+            document.getElementById('lightboxImg').src = '';
+            document.body.style.overflow = '';
+        }
+
+        function navigateLightbox(dir) {
+            currentIndex = (currentIndex + dir + allItems.length) % allItems.length;
+            const item = allItems[currentIndex];
+            document.getElementById('lightboxImg').src = item.dataset.src;
+            document.getElementById('lightboxCaption').textContent = item.dataset.caption || '';
+            document.getElementById('lightboxCounter').textContent = (currentIndex + 1) + ' / ' + allItems.length;
+        }
+
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));
+        document.getElementById('lightboxNext').addEventListener('click', () => navigateLightbox(1));
+        document.getElementById('lightboxOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+        document.addEventListener('keydown', e => {
+            if (!document.getElementById('lightboxOverlay').classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        // Initial count
+        document.getElementById('galleryCount').textContent = document.querySelectorAll('.gallery-item[data-src]').length + ' Photos';
+        attachClickHandlers();
+    </script>
+</body>
+</html>

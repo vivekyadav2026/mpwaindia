@@ -1,0 +1,29 @@
+<USER_REQUEST>
+TEAM AGAINST CORRUPTION AND CRIME (TACC)
+VISION (दृष्टि)
+हमारा विज़न एक ऐसे भारत का निर्माण करना है जहाँ प्रत्येक नागरिक को बिना किसी भ्रष्टाचार, भय, भेदभाव और अपराध के न्याय, सुरक्षा एवं सम्मान के साथ जीवन जीने का अवसर प्राप्त हो। हम एक ऐसे समाज की कल्पना करते हैं जो ईमानदारी, पारदर्शिता, जवाबदेही और संवैधानिक मूल्यों पर आधारित हो तथा जहाँ शासन और प्रशासन जनता के प्रति पूर्णतः उत्तरदायी हो।
+हम मानते हैं कि भ्रष्टाचार और अपराध केवल कानूनी समस्याएँ नहीं हैं, बल्कि सामाजिक और नैतिक चुनौतियाँ भी हैं। इसलिए हमारा उद्देश्य एक ऐसी जनशक्ति तैयार करना है जो अन्याय, भ्रष्टाचार, नशाखोरी, महिला उत्पीड़न, साइबर अपराध, मानव तस्करी और अन्य सामाजिक बुराइयों के विरुद्ध जागरूक होकर खड़ी हो सके।
+TACC का सपना एक ऐसे राष्ट्र का निर्माण करना है जहाँ युवा परिवर्तन के वाहक बनें, नागरिक अपने अधिकारों और कर्तव्यों के प्रति ज
+<truncated 8556 bytes>
+ocacy, and preventive initiatives.
+5. Promoting Transparency and Accountability
+Encouraging transparency, ethical governance, and accountability in public and private institutions while fostering a culture of honesty, responsibility, and good governance.
+6. Assisting Victims and Vulnerable Communities
+Providing guidance, support, and assistance to individuals affected by corruption, crime, or injustice, helping them access appropriate legal, social, and institutional resources.
+7. Building Partnerships for Change
+Collaborating with citizens, educational institutions, civil society organizations, community groups, media, and other stakeholders to strengthen collective efforts against corruption and crime.
+8. Leveraging Technology and Innovation
+Utilizing digital platforms, technology, and modern communication tools to spread awareness, encourage civic engagement, and expand the impact of anti-corruption and anti-crime initiatives across India.
+OUR COMMITMENT
+We are committed to upholding the values of truth, integrity, transparency, justice, and social responsibility. Through continuous awareness, advocacy, and community participation, we aim to empower citizens and contribute meaningfully to the creation of a safer, more ethical, and corruption-free India.
+Motto
+"Together for Integrity, Justice, and a Corruption-Free India."
+Slogan
+"No Corruption, No Crime – Building a Safer and Stronger India Together."Contact details 9814766820 ye details aur ye logo bheja hai mere client ne aur bola Aur apne jaise batata ak page usme user apni unique I'd dalega aur sara details open ho jayega aur ye sari details aap enter karoge
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-06-08T21:34:30+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.1 Pro (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
