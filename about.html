@@ -3,130 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Practitioners Welfare Association (Regd.)</title>
-    <meta name="description" content="Medical Practitioners Welfare Association (Regd.) - Unity, Protection, Respect, Service, Progress.">
+    <title>About Us - Medical Practitioners Welfare Association (MPWA)</title>
+    <meta name="description" content="Learn about Medical Practitioners Welfare Association (MPWA) - a dedicated organization working for the welfare, rights, and protection of medical professionals across India.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
+
     <style>
-        /* Certificate Gallery Styles */
-        .cert-gallery {
+        .about-doctors-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            margin-top: 40px;
         }
-        .cert-item {
-            background: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border: 1px solid #e8e8e8;
-            transition: all 0.3s ease;
-            cursor: pointer;
+        @media (max-width: 900px) {
+            .about-doctors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
-        .cert-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
-            border-color: #D32F2F;
-        }
-        .cert-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
-        .cert-item-body {
-            padding: 14px 16px;
-            border-top: 3px solid #D32F2F;
-        }
-        .cert-item-body h4 {
-            font-size: 0.85rem;
-            color: #0A192F;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 8px;
-        }
-        .cert-item-body a {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.78rem;
-            color: #D32F2F;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .cert-item-body a:hover { text-decoration: underline; }
-
-        /* Lightbox */
-        .lightbox-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        .lightbox-overlay.active { display: flex; }
-        .lightbox-overlay img {
-            max-width: 90vw;
-            max-height: 85vh;
-            object-fit: contain;
-            border-radius: 6px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 20px; right: 30px;
-            color: white;
-            font-size: 2.5rem;
-            cursor: pointer;
-            line-height: 1;
-            opacity: 0.8;
-        }
-        .lightbox-close:hover { opacity: 1; color: #D32F2F; }
-        .lightbox-caption {
-            color: #ccc;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        @media (max-width: 1024px) { .cert-gallery { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 768px) { .cert-gallery { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 480px) { .cert-gallery { grid-template-columns: 1fr; } }
-
-        /* Gallery Row Grid on Homepage */
-        .gallery-row-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
-        .gallery-row-grid img {
-            width: 100%;
-            border-radius: 6px;
-            object-fit: cover;
-            height: 220px;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-        .gallery-row-grid img:hover {
-            transform: scale(1.04);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        @media (max-width: 768px) {
-            .gallery-row-grid { grid-template-columns: repeat(2, 1fr); }
-            .gallery-row-grid img { height: 180px; }
-        }
-        @media (max-width: 480px) {
-            .gallery-row-grid { grid-template-columns: 1fr; }
+        @media (max-width: 500px) {
+            .about-doctors-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
+
 </head>
 <body>
 
@@ -135,10 +37,6 @@
         <div class="container top-bar-inner">
             <div class="top-links">
                 <a href="#" class="dyn-phone1 preserve-icon">Help Line : +91 95922 07615</a>
-            </div>
-            <div class="top-actions">
-                <a href="new_registration.html" class="btn-top">NEW REGISTRATION</a>
-                <a href="check_registration.html" class="btn-top">CHECK REGISTRATION</a>
             </div>
         </div>
     </div>
@@ -153,10 +51,10 @@
                     <span class="logo-subtitle">Registered Organization</span>
                 </div>
             </a>
-            <nav class="desktop-nav">
+            <nav class="main-nav">
                 <ul class="nav-links">
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About Us</a></li>
                     <li><a href="donate.html">Donate Now</a></li>
                     <li><a href="certificates.html">Certificates</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
@@ -169,42 +67,43 @@
         </div>
     </header>
 
-    <!-- Image Slider -->
-    <div class="hero-slider" id="heroSlider">
-        <div class="slide active" style="background-image: url('assets/images/banner_1.jpg?v=2.2');"></div>
-        <div class="slide" style="background-image: url('assets/images/banner_2.jpg?v=2.2');"></div>
-        <div class="slide" style="background-image: url('assets/images/banner_3.jpg?v=2.2');"></div>
-        <div class="slider-controls">
-            <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="slider-dots"></div>
-    </div>
-
-
-
-    <div class="banner-blue">
-        <h2 class="banner-title">MEDICAL PRACTITIONERS WELFARE ASSOCIATION (REGD.)</h2>
-    </div>
-
-    <div class="banner-red-text">
+    <!-- Page Hero -->
+    <div class="page-hero">
         <div class="container">
-            <p>"Unity – Protection – Respect – Service – Progress" | "एकता – सुरक्षा – सम्मान – सेवा – प्रगति" | "ਏਕਤਾ – ਸੁਰੱਖਿਆ – ਸਨਮਾਨ – ਸੇਵਾ – ਤਰੱਕੀ"</p>
+            <div class="breadcrumb"><a href="index.html">Home</a> / About Us</div>
+            <h1>About Our Association</h1>
+            <p>Dedicated to the welfare, dignity, protection, and professional excellence of medical practitioners across India.</p>
         </div>
     </div>
 
-    <!-- Multilingual Info Section -->
-        <section class="about-association-section" style="padding: 70px 0; background: #fff;">
+    <!-- About Section -->
+    <section class="about-association-section" style="padding: 70px 0; background: #fff;">
         <div class="container">
-            <div class="text-center mb-30">
-                <div class="block-icon" style="font-size: 3rem; color: #D32F2F; margin-bottom: 15px;"><i class="fas fa-hand-holding-medical"></i></div>
-                <h4 class="sub-heading text-red">ABOUT THE ASSOCIATION</h4>
-                <h2 class="section-title">संस्था की जानकारी / About Us</h2>
-                <div class="title-underline-center"></div>
+            
+    <!-- Dedicated Doctors Visual Grid -->
+    <div class="container" style="margin-top: 50px; margin-bottom: 20px;">
+        <div class="about-doctors-grid">
+            <div style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #e8e8e8;">
+                <img src="assets/images/doc_1.jpg" alt="Healthcare Professional" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                <div style="padding: 10px; background: #fff; text-align: center; font-size: 0.85rem; font-weight: bold; color: #0A192F;">Allopathic & AYUSH Doctors</div>
             </div>
+            <div style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #e8e8e8;">
+                <img src="assets/images/doc_2.jpg" alt="Healthcare Professional" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                <div style="padding: 10px; background: #fff; text-align: center; font-size: 0.85rem; font-weight: bold; color: #0A192F;">Nursing & GNM/ANM Staff</div>
+            </div>
+            <div style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #e8e8e8;">
+                <img src="assets/images/doc_3.jpg" alt="Healthcare Professional" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                <div style="padding: 10px; background: #fff; text-align: center; font-size: 0.85rem; font-weight: bold; color: #0A192F;">Clinic & Hospital Operators</div>
+            </div>
+            <div style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #e8e8e8;">
+                <img src="assets/images/doc_4.jpg" alt="Healthcare Professional" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                <div style="padding: 10px; background: #fff; text-align: center; font-size: 0.85rem; font-weight: bold; color: #0A192F;">Lab & Pharma Professionals</div>
+            </div>
+        </div>
+    </div>
 
             <!-- Language Selector Tabs -->
-            <div class="lang-tabs-container">
+            <div class="lang-tabs-container" style="margin-bottom: 40px; display: flex; justify-content: center; gap: 15px;">
                 <button class="lang-tab-btn active" onclick="switchLanguage('hi', this)">हिन्दी</button>
                 <button class="lang-tab-btn" onclick="switchLanguage('en', this)">English</button>
                 <button class="lang-tab-btn" onclick="switchLanguage('pa', this)">ਪੰਜਾਬੀ</button>
@@ -285,7 +184,7 @@
             <!-- Content Panel: Punjabi -->
             <div id="content-pa" class="lang-content" style="display: none;">
                 <div style="max-width: 950px; margin: 0 auto; text-align: justify; font-size: 1.05rem; line-height: 1.8; color: #444;">
-                    <h3 style="color: #0A192F; font-size: 1.6rem; text-align: center; margin-bottom: 25px; font-weight: 800;">ਮੈਡੀਕਲ ਪ੍ਰੈਕਟੀਸ਼ਨਰਜ਼ ਵੈਲਫੇਅਰ ਐਸੋਸੀਏਸ਼ਨ (ਰਜਿ.) <br><span style="font-size: 1.1rem; color: #D32F2F; font-weight: 600;">"ਮੈਡੀਕਲ ਪ੍ਰੈਕਟੀਸ਼ਨਰਜ਼ ਵੈਲਫੇਅਰ ਐਸੋਸੀਏਸ਼ਨ (ਰਜਿ.)"</span></h3>
+                    <h3 style="color: #0A192F; font-size: 1.6rem; text-align: center; margin-bottom: 25px; font-weight: 800;">ਮੈਡੀਕਲ ਪ੍ਰੈਕਟੀਸ਼ਨਰਜ਼ ਵੈਲਫੇਅਰ ਐਸੋਸੀਏਸ਼ਨ (ਰਜਿ.) <br><span style="font-size: 1.1rem; color: #D32F2F; font-weight: 600;">"ਏਕਤਾ • ਸੁਰੱਖਿਆ • ਸਨਮਾਨ • ਸੇਵਾ • ਉਤਕ੍ਰਿਸ਼ਟਤਾ"</span></h3>
                     <p style="margin-bottom: 18px;">ਮੈਡੀਕਲ ਪ੍ਰੈਕਟੀਸ਼ਨਰਜ਼ ਵੈਲਫੇਅਰ ਐਸੋਸੀਏਸ਼ਨ (ਰਜਿ.) ਇੱਕ ਮਾਣਯੋਗ, ਗੈਰ-ਰਾਜਨੀਤਿਕ, ਗੈਰ-ਮੁਨਾਫ਼ਾ ਅਤੇ ਸਮਾਜ ਸੇਵੀ ਸੰਸਥਾ ਹੈ, ਜੋ ਭਾਰਤ ਭਰ ਦੇ ਸਾਰੇ ਯੋਗ ਮੈਡੀਕਲ ਅਤੇ ਹੈਲਥਕੇਅਰ ਪ੍ਰੋਫੈਸ਼ਨਲਜ਼ ਦੇ ਹੱਕਾਂ, ਸੁਰੱਖਿਆ, ਸਨਮਾਨ, ਭਲਾਈ ਅਤੇ ਪੇਸ਼ਾਵਰ ਵਿਕਾਸ ਲਈ ਸਮਰਪਿਤ ਹੈ। ਸੰਸਥਾ ਦਾ ਮੁੱਖ ਉਦੇਸ਼ ਮੈਡੀਕਲ ਭਾਈਚਾਰੇ ਨੂੰ ਇੱਕ ਮਜ਼ਬੂਤ ਅਤੇ ਸਾਂਝਾ ਮੰਚ ਪ੍ਰਦਾਨ ਕਰਨਾ ਅਤੇ ਸਮਾਜ ਨੂੰ ਉੱਚ ਪੱਧਰੀ ਸਿਹਤ ਸੇਵਾਵਾਂ ਮੁਹੱਈਆ ਕਰਵਾਉਣ ਵਿੱਚ ਆਪਣਾ ਯੋਗਦਾਨ ਪਾਉਣਾ ਹੈ।</p>
                     <p style="margin-bottom: 18px;">ਇਹ ਸੰਸਥਾ ਭਾਰਤ ਸਰਕਾਰ ਅਧੀਨ ਵਿਧੀਵਤ ਰਜਿਸਟਰਡ NGO ਹੈ ਅਤੇ ਗੁਣਵੱਤਾ ਪ੍ਰਬੰਧਨ ਲਈ ISO 9001:2015 ਪ੍ਰਮਾਣਿਤ ਹੈ। ਇਸ ਤੋਂ ਇਲਾਵਾ ਸੰਸਥਾ MSME, ਭਾਰਤ ਸਰਕਾਰ ਵਿੱਚ ਰਜਿਸਟਰਡ ਹੈ ਅਤੇ ਨੀਤੀ ਆਯੋਗ (NGO Darpan) ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ। ਸੰਸਥਾ ਨੂੰ ਆਮਦਨ ਕਰ ਐਕਟ ਦੀ ਧਾਰਾ 12A ਅਤੇ 80G ਅਧੀਨ ਮਾਨਤਾ ਪ੍ਰਾਪਤ ਹੈ, ਜਿਸ ਨਾਲ ਇਸ ਦੇ ਸਮਾਜ ਸੇਵਾ ਕਾਰਜਾਂ ਵਿੱਚ ਪਾਰਦਰਸ਼ਤਾ ਅਤੇ ਭਰੋਸੇਯੋਗਤਾ ਬਣੀ ਰਹਿੰਦੀ ਹੈ।</p>
                     <p style="margin-bottom: 18px;">ਇਸ ਤੋਂ ਇਲਾਵਾ ਸੰਸਥਾ ਭਾਰਤ ਸਰਕਾਰ ਅਤੇ ਰਾਜ ਸਰਕਾਰ ਦੇ ਵੱਖ-ਵੱਖ ਵਿਭਾਗਾਂ, ਕਮਿਸ਼ਨਾਂ, ਕਾਨੂੰਨੀ ਸੰਸਥਾਵਾਂ ਅਤੇ ਹੋਰ ਸਰਕਾਰੀ ਏਜੰਸੀਆਂ ਨਾਲ ਮਿਲ ਕੇ ਸਿਹਤ ਸੇਵਾ, ਜਨ ਸਿਹਤ ਅਤੇ ਸਮਾਜ ਭਲਾਈ ਦੇ ਖੇਤਰ ਵਿੱਚ ਸਰਗਰਮ ਭੂਮਿਕਾ ਨਿਭਾ ਰਹੀ ਹੈ।</p>
@@ -300,7 +199,7 @@
                         </div>
                         <div style="background: #f8f9fa; border-top: 4px solid #0A192F; border-radius: 8px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
                             <h4 style="color: #0A192F; font-size: 1.25rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-eye" style="color: #0A192F;"></i> ਸਾਡਾ ਵਿਜ਼ਨ</h4>
-                            <p style="font-size: 0.95rem; color: #555; line-height: 1.7;">ਇੱਕ ਸੰਗਠਿਤ, ਸਸ਼ਕਤ ਅਤੇ ਸਨਮਾਨਿਤ ਮੈਡੀਕਲ ਭਾਈਚਾਰੇ ਦੀ ਸਥਾਪਨਾ ਕਰਨੀ, ਜੋ ਨੈਤਿਕ ਮੁੱਲਾਂ ਨਾਲ ਮਨੁੱਖਤਾ ਦੀ ਸੇਵਾ ਕਰੇ ਅਤੇ ਸਿਹਤਮੰਦ ਭਾਰਤ ਦੇ ਨਿਰਮਾਣ ਵਿੱਚ ਆਪਣਾ ਯੋਗਦਾਨ ਪਾਏ।</p>
+                            <p style="font-size: 0.95rem; color: #555; line-height: 1.7;">ਇੱਕ ਸੰਗਠਿਤ, ਸਸ਼ਕਤ and ਸਨਮਾਨਿਤ ਮੈਡੀਕਲ ਭਾਈਚਾਰੇ ਦੀ ਸਥਾਪਨਾ ਕਰਨੀ, ਜੋ ਨੈਤਿਕ ਮੁੱਲਾਂ ਨਾਲ ਮਨੁੱਖਤਾ ਦੀ ਸੇਵਾ ਕਰੇ ਅਤੇ ਸਿਹਤਮੰਦ ਭਾਰਤ ਦੇ ਨਿਰਮਾਣ ਵਿੱਚ ਆਪਣਾ ਯੋਗਦਾਨ ਪਾਏ।</p>
                         </div>
                         <div style="background: #f8f9fa; border-top: 4px solid #FFC107; border-radius: 8px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
                             <h4 style="color: #0A192F; font-size: 1.25rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-award" style="color: #FFC107;"></i> ਸਾਡਾ ਮੂਲ ਮੰਤਰ</h4>
@@ -312,62 +211,8 @@
         </div>
     </section>
 
-<!--
-<!-- ========== ALL CERTIFICATES SECTION ========== -->
-    <section id="certificates" class="certificate-section text-center bg-light">
-        <div class="container">
-            <h4 class="sub-heading text-red">ACHIEVEMENTS & PLEDGES</h4>
-            <h2 class="section-title">Our Certificates & Recognitions</h2>
-            <div class="title-underline-center"></div>
-            <p style="max-width:700px; margin: 0 auto; color:#666; font-size:0.95rem;">
-                MPWA is recognized for its impactful work across multiple social causes. Below are our official certificates and pledge acknowledgements issued by Government of India portals.
-            </p>
-
-            <div class="cert-gallery" id="dynamic-certificates-index">
-                <!-- Dynamically populated via JS -->
-            </div>
-            
-            <a href="certificates.html" class="btn-solid-red mt-30">VIEW ALL CERTIFICATES</a>
-        </div>
-    </section>
-
-    <!-- Lightbox -->
-    <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <img id="lightboxImg" src="" alt="">
-        <p class="lightbox-caption" id="lightboxCaption"></p>
-    </div>
-
-    <!-- Join Banner -->
-    <div class="banner-red-cta">
-        <div class="container flex-between align-center">
-            <h2 class="cta-text">Want To Become A Member Of MPWA? <br><strong>Join Our Team</strong></h2>
-            <a href="contact.html" class="btn-solid-blue">JOIN NOW</a>
-        </div>
-    </div>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="news-gallery-section text-center">
-        <div class="container">
-            <h2 class="section-title">Gallery</h2>
-            <div class="title-underline-center"></div>
-            <div class="gallery-row-grid mt-30" id="dynamic-gallery-index">
-                <!-- Dynamically populated via JS -->
-            </div>
-            <a href="gallery.html" class="btn-solid-red mt-30">VIEW ALL GALLERY</a>
-        </div>
-    </section>
-
-    <!-- Donate Banner -->
-    <div class="banner-red-cta">
-        <div class="container flex-between align-center">
-            <h2 class="cta-text"><i class="fas fa-hand-holding-heart"></i> Support the welfare of medical practitioners</h2>
-            <a href="donate.html" class="btn-solid-blue">DONATE</a>
-        </div>
-    </div>
-
     <!-- Footer -->
-    <footer class="main-footer">
+    <footer class="main-footer bg-blue">
         <div class="container grid-4">
             <div class="footer-col">
                 <div class="logo-container mb-20">
@@ -387,11 +232,10 @@
                 <ul class="footer-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
-                    <!-- <li><a href="team.html">Our Team</a></li> -->
                     <li><a href="certificates.html">Certificates</a></li>
                     <li><a href="donate.html">Donate Now</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -402,7 +246,7 @@
             </div>
             <div class="footer-col">
                 <h3>Location</h3>
-                <iframe src="https://www.google.com/maps?q=30.874538,75.8619576&z=17&hl=en&output=embed" width="100%" height="200" style="border:0; border-radius:4px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3424.4754593455327!2d75.8647038151336!3d30.87332398158739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a825b4ab4b60b%3A0xc3b83b3d2b0cf53!2sNew%20Janta%20Nagar%2C%20Ludhiana%2C%20Punjab%20141003!5e0!3m2!1sen!2sin!4v1680194883492!5m2!1sen!2sin" width="100%" height="150" style="border:0; border-radius: 4px;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
         <div class="footer-bottom text-center">
@@ -410,20 +254,6 @@
         </div>
     </footer>
 
-    <script src="js/app.js?v=2.1"></script>
-    <script>
-        function openLightbox(src, caption) {
-            document.getElementById('lightboxImg').src = src;
-            document.getElementById('lightboxCaption').textContent = caption;
-            document.getElementById('lightboxOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() {
-            document.getElementById('lightboxOverlay').classList.remove('active');
-            document.getElementById('lightboxImg').src = '';
-            document.body.style.overflow = '';
-        }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-    </script>
+    <script src="js/app.js"></script>
 </body>
 </html>

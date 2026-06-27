@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function performSearch() {
         const query = memberIdInput.value.trim();
         if (!query) {
-            showMessage('Please enter a valid TACC ID.', 'msg-error');
+            showMessage('Please enter a valid Registration Number / Member ID.', 'msg-error');
             hideCard();
             return;
         }
@@ -132,6 +132,25 @@ document.addEventListener('DOMContentLoaded', () => {
         searchMessage.className = 'search-message';
         hideCard();
 
+        // 1. Search localStorage first
+        let localFound = null;
+        try {
+            const localRegistrations = JSON.parse(localStorage.getItem('mpwa_registrations') || '[]');
+            const normalizedQuery = normalizeId(query);
+            localFound = localRegistrations.find(m => normalizeId(m.id) === normalizedQuery);
+        } catch (err) {
+            console.error('Error reading localStorage:', err);
+        }
+
+        if (localFound) {
+            setTimeout(() => {
+                displayCard(localFound);
+                showMessage('Member verified successfully (Newly Registered Member).', 'msg-success');
+            }, 400);
+            return;
+        }
+
+        // 2. Fallback to data.json
         fetch('data.json')
             .then(response => response.json())
             .then(membersDatabase => {
@@ -390,3 +409,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+window.switchLanguage = function(lang, btn) {
+    document.querySelectorAll('.lang-content').forEach(el => {
+        el.style.display = 'none';
+    });
+    document.querySelectorAll('.lang-tab-btn').forEach(b => {
+        b.classList.remove('active');
+    });
+    const selectedContent = document.getElementById(`content-${lang}`);
+    if (selectedContent) {
+        selectedContent.style.display = 'block';
+    }
+    if (btn) {
+        btn.classList.add('active');
+    } else {
+        const activeBtn = document.querySelector(`.lang-tab-btn[onclick*="'${lang}'"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+    }
+};

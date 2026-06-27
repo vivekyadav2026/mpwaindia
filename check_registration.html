@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Registration - Medical Practitioners Welfare Association (MPWA)</title>
+    <meta name="description" content="Verify and check membership registration details online for Medical Practitioners Welfare Association (MPWA).">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .check-card-container {
+            max-width: 550px;
+            margin: -40px auto 60px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--primary-red);
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .check-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+        }
+
+        .check-desc {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .search-box-wrap {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1.5px solid #dcdcdc;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-red);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.08);
+        }
+
+        .search-btn {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.2);
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--dark-red);
+            transform: translateY(-1px);
+        }
+
+        /* ID Card Preview Styles */
+        .id-card-wrapper {
+            margin-top: 35px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            text-align: left;
+            transition: all 0.4s ease;
+        }
+
+        .id-card-wrapper.hidden {
+            display: none;
+        }
+
+        .id-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #172A45 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        .id-small-logo {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .id-header-text h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .id-header-text span {
+            font-size: 0.72rem;
+            color: #a1b0cb;
+            font-weight: bold;
+        }
+
+        .id-body {
+            padding: 25px;
+            display: flex;
+            gap: 25px;
+            background: #fdfdfd;
+        }
+
+        .id-photo-wrap {
+            width: 120px;
+            height: 145px;
+            border: 3px solid #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            background: #eaeaea;
+        }
+
+        .id-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .id-details {
+            flex: 1;
+        }
+
+        .id-details h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0A192F;
+            margin: 0 0 10px 0;
+        }
+
+        .id-meta-item {
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .id-meta-item strong {
+            color: #112240;
+            display: inline-block;
+            width: 110px;
+        }
+
+        .id-footer {
+            background: #f7f9fc;
+            padding: 10px 20px;
+            font-size: 0.78rem;
+            color: #666;
+            text-align: center;
+            border-top: 1px dashed #e2e8f0;
+            font-weight: bold;
+        }
+
+        .search-message {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .msg-success {
+            color: #2e7d32;
+        }
+
+        .msg-error {
+            color: #c62828;
+        }
+
+        @media (max-width: 500px) {
+            .check-card-container {
+                padding: 25px 20px;
+                margin: -20px 15px 40px;
+            }
+            .search-box-wrap {
+                flex-direction: column;
+            }
+            .id-body {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .id-meta-item strong {
+                width: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Action Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <div class="top-links">
+                <a href="#" class="dyn-phone1 preserve-icon">Help Line : +91 95922 07615</a>
+            </div>
+            <div class="top-actions">
+                <a href="new_registration.html" class="btn-top">NEW REGISTRATION</a>
+                <a href="check_registration.html" class="btn-top">CHECK REGISTRATION</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-container" style="text-decoration: none;">
+                <img src="assets/logo.png" alt="MPWA Logo" class="nav-logo">
+                <div class="logo-text-block">
+                    <span class="logo-title">MEDICAL PRACTITIONERS WELFARE ASSOCIATION</span>
+                    <span class="logo-subtitle">Registered Organization</span>
+                </div>
+            </a>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <div class="page-hero">
+        <div class="container">
+            <div class="breadcrumb"><a href="index.html">Home</a> / Check Registration</div>
+            <h1>CHECK REGISTRATION</h1>
+            <p>Verify your membership and check active registration status in the MPWA database.</p>
+        </div>
+    </div>
+
+    <!-- Check Card Section -->
+    <div class="container" style="padding: 0 15px;">
+        <div class="check-card-container">
+            <h2 class="check-title">Check Your Registration</h2>
+            <p class="check-desc">Enter your unique MPWA Registration Number / Member ID (e.g. MPWA-24-050) below to fetch dynamic registration status.</p>
+            
+            <div class="search-box-wrap">
+                <input type="text" id="regNoInput" class="search-input" placeholder="Enter Registration No (e.g., MPWA-24-050)" required>
+                <button type="button" id="searchBtn" class="search-btn">Submit</button>
+            </div>
+            
+            <div id="searchMessage" class="search-message"></div>
+
+            <!-- Registration ID Card Output -->
+            <div class="id-card-wrapper hidden" id="idCardResult">
+                <div class="id-header">
+                    <img src="assets/logo.png" alt="Logo" class="id-small-logo">
+                    <div class="id-header-text">
+                        <h4>MEDICAL PRACTITIONERS WELFARE ASSOCIATION</h4>
+                        <span>Registered Organization • Govt. of India</span>
+                    </div>
+                </div>
+                <div class="id-body">
+                    <div class="id-photo-wrap">
+                        <img src="" alt="Member Photo" id="memberPhoto" class="id-photo">
+                    </div>
+                    <div class="id-details">
+                        <h3 id="memberName">--</h3>
+                        <div class="id-meta-item"><strong>Regd ID:</strong> <span id="displayMemberId">--</span></div>
+                        <div class="id-meta-item"><strong>Designation:</strong> <span id="memberDesignation">--</span></div>
+                        <div class="id-meta-item"><strong>Jurisdiction:</strong> <span id="memberState">--</span></div>
+                        <div class="id-meta-item"><strong>Validity:</strong> <span id="memberValidity">--</span></div>
+                        <div class="id-meta-item"><strong>Status:</strong> <span style="background: #2e7d32; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">ACTIVE</span></div>
+                    </div>
+                </div>
+                <div class="id-footer">
+                    * Unity • Welfare • Protection • Service • Excellence *
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer bg-blue">
+        <div class="container grid-4">
+            <div class="footer-col">
+                <div class="logo-container mb-20">
+                    <img src="assets/logo.png" alt="Logo" class="footer-logo">
+                    <span style="color:white; font-weight:bold; font-size:1.2rem;">MPWA</span>
+                </div>
+                <p>Dedicated to the welfare of medical practitioners and the health of society. Empowering healthcare professionals for a better tomorrow.</p>
+                <div class="social-links mt-20">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p class="dyn-address preserve-icon"><i class="fas fa-map-marker-alt"></i> Ludhiana, Punjab, India</p>
+                <p class="dyn-email preserve-icon"><i class="fas fa-envelope"></i> mpwaindia@gmail.com</p>
+                <p class="dyn-phone1 preserve-icon"><i class="fas fa-phone-alt"></i> +91 95922 07615</p>
+            </div>
+            <div class="footer-col">
+                <h3>Location</h3>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3424.4754593455327!2d75.8647038151336!3d30.87332398158739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a825b4ab4b60b%3A0xc3b83b3d2b0cf53!2sNew%20Janta%20Nagar%2C%20Ludhiana%2C%20Punjab%20141003" width="100%" height="150" style="border:0; border-radius: 4px;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Medical Practitioners Welfare Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchBtn = document.getElementById('searchBtn');
+            const regNoInput = document.getElementById('regNoInput');
+            const searchMessage = document.getElementById('searchMessage');
+            const idCardResult = document.getElementById('idCardResult');
+
+            const memberPhoto = document.getElementById('memberPhoto');
+            const displayMemberId = document.getElementById('displayMemberId');
+            const memberName = document.getElementById('memberName');
+            const memberDesignation = document.getElementById('memberDesignation');
+            const memberState = document.getElementById('memberState');
+            const memberValidity = document.getElementById('memberValidity');
+
+            if (searchBtn && regNoInput) {
+                searchBtn.addEventListener('click', performSearch);
+                regNoInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+            }
+
+            function normalizeId(id) {
+                return id.toUpperCase()
+                         .replace(/\s+/g, '')       // remove spaces
+                         .replace(/\./g, '')        // remove dots
+                         .replace(/^(REGDNO|REGD|REG|NO)/g, '')
+                         .replace(/^(MPWA|TACC)/g, '')
+                         .replace(/^NO/g, '');      // remove leftover NO prefix
+            }
+
+            function showMessage(msg, className) {
+                searchMessage.textContent = msg;
+                searchMessage.className = `search-message ${className}`;
+            }
+
+            function performSearch() {
+                const query = regNoInput.value.trim();
+                if (!query) {
+                    showMessage('Please enter a valid Registration Number.', 'msg-error');
+                    idCardResult.classList.add('hidden');
+                    return;
+                }
+
+                showMessage('Verifying registration...', 'msg-success');
+                idCardResult.classList.add('hidden');
+
+                // 1. First, search locally registered members stored in localStorage
+                let localFound = null;
+                try {
+                    const localRegistrations = JSON.parse(localStorage.getItem('mpwa_registrations') || '[]');
+                    const normalizedQuery = normalizeId(query);
+                    localFound = localRegistrations.find(m => normalizeId(m.id) === normalizedQuery);
+                } catch (err) {
+                    console.error('Error reading localStorage:', err);
+                }
+
+                if (localFound) {
+                    setTimeout(() => {
+                        memberPhoto.src = localFound.photo;
+                        displayMemberId.textContent = localFound.id;
+                        memberName.textContent = localFound.name;
+                        memberDesignation.textContent = localFound.designation;
+                        memberState.textContent = localFound.state || 'N/A';
+                        memberValidity.textContent = localFound.validity || 'N/A';
+                        
+                        idCardResult.classList.remove('hidden');
+                        showMessage('Registration verified and active (Newly Registered Member).', 'msg-success');
+                    }, 400);
+                    return;
+                }
+
+                // 2. If not found in localStorage, fetch and search the official data.json database
+                fetch('data.json')
+                    .then(response => response.json())
+                    .then(membersDatabase => {
+                        setTimeout(() => {
+                            const normalizedQuery = normalizeId(query);
+                            const member = membersDatabase.find(m => normalizeId(m.id) === normalizedQuery);
+                            if (member) {
+                                memberPhoto.src = member.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=112240&color=fff&size=150`;
+                                displayMemberId.textContent = member.id.replace(/^Tacc/i, 'MPWA');
+                                memberName.textContent = member.name;
+                                memberDesignation.textContent = member.designation;
+                                memberState.textContent = member.state || 'N/A';
+                                memberValidity.textContent = member.validity || 'N/A';
+                                
+                                idCardResult.classList.remove('hidden');
+                                showMessage('Registration verified and active.', 'msg-success');
+                            } else {
+                                showMessage(`No active registration found with Registration Number: ${query}`, 'msg-error');
+                            }
+                        }, 500);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                        showMessage('Error connecting to database. Please try again later.', 'msg-error');
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

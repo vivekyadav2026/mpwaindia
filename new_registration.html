@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Registration - Medical Practitioners Welfare Association (MPWA)</title>
+    <meta name="description" content="Online membership registration form for Medical Practitioners Welfare Association (MPWA).">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .registration-form-card {
+            max-width: 800px;
+            margin: -40px auto 60px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--primary-red);
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 30px;
+            border-bottom: 2px dashed #eaeaea;
+            padding-bottom: 15px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 25px;
+        }
+
+        .form-group-full {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0A192F;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid #dcdcdc;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #333;
+            transition: all 0.3s;
+            outline: none;
+            background-color: #fafafa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-red);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.08);
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-btn {
+            border: 2px dashed #ccc;
+            color: #666;
+            background-color: #fafafa;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .file-upload-btn:hover {
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+            background-color: rgba(211, 47, 47, 0.02);
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .submit-btn-container {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-red);
+            color: #fff;
+            padding: 15px 50px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .form-message {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .msg-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .msg-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* ID Card Preview Styles */
+        .id-card-preview-section {
+            margin-top: 40px;
+            border-top: 2px dashed #eaeaea;
+            padding-top: 30px;
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .id-card-wrapper {
+            max-width: 480px;
+            margin: 20px auto 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            text-align: left;
+        }
+
+        .id-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #172A45 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        .id-small-logo {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .id-header-text h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .id-header-text span {
+            font-size: 0.72rem;
+            color: #a1b0cb;
+            font-weight: bold;
+        }
+
+        .id-body {
+            padding: 25px;
+            display: flex;
+            gap: 25px;
+            background: #fdfdfd;
+        }
+
+        .id-photo-wrap {
+            width: 120px;
+            height: 145px;
+            border: 3px solid #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            background: #eaeaea;
+        }
+
+        .id-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .id-details {
+            flex: 1;
+        }
+
+        .id-details h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0A192F;
+            margin: 0 0 10px 0;
+        }
+
+        .id-meta-item {
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .id-meta-item strong {
+            color: #112240;
+            display: inline-block;
+            width: 110px;
+        }
+
+        .id-footer {
+            background: #f7f9fc;
+            padding: 10px 20px;
+            font-size: 0.78rem;
+            color: #666;
+            text-align: center;
+            border-top: 1px dashed #e2e8f0;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group-full {
+                grid-column: span 1;
+            }
+            .registration-form-card {
+                padding: 25px 20px;
+                margin: -20px 15px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Action Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <div class="top-links">
+                <a href="#" class="dyn-phone1 preserve-icon">Help Line : +91 95922 07615</a>
+            </div>
+            <div class="top-actions">
+                <a href="new_registration.html" class="btn-top">NEW REGISTRATION</a>
+                <a href="check_registration.html" class="btn-top">CHECK REGISTRATION</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-container" style="text-decoration: none;">
+                <img src="assets/logo.png" alt="MPWA Logo" class="nav-logo">
+                <div class="logo-text-block">
+                    <span class="logo-title">MEDICAL PRACTITIONERS WELFARE ASSOCIATION</span>
+                    <span class="logo-subtitle">Registered Organization</span>
+                </div>
+            </a>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <div class="page-hero">
+        <div class="container">
+            <div class="breadcrumb"><a href="index.html">Home</a> / Registration</div>
+            <h1>REGISTRATION</h1>
+            <p>Fill out the application form below to register and become an active member of MPWA.</p>
+        </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="container" style="padding: 0 15px;">
+        <div class="registration-form-card">
+            <h2 class="form-title">New Registration Form</h2>
+            
+            <form id="regForm" enctype="multipart/form-data">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="courseName">Course name for registration:</label>
+                        <input type="text" id="courseName" placeholder="Enter course name for registration" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eduCenter">Name of education center:</label>
+                        <input type="text" id="eduCenter" placeholder="Enter name of education center" required>
+                    </div>
+                    
+                    <div class="form-group form-group-full">
+                        <label for="awardingBody">Name of the university/Board/Council awarding Certificate:</label>
+                        <input type="text" id="awardingBody" placeholder="Enter Name of the university/Board/Council awarding Certificate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="candidateName">Full Name of candidate:</label>
+                        <input type="text" id="candidateName" placeholder="Enter full name of candidate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fatherName">Father Name:</label>
+                        <input type="text" id="fatherName" placeholder="Enter Father Name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="motherName">Mother Name:</label>
+                        <input type="text" id="motherName" placeholder="Enter Mother Name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="aadharNo">Aadhar number:</label>
+                        <input type="text" id="aadharNo" placeholder="Enter Aadhar number" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mobileNo">Mobile number:</label>
+                        <input type="text" id="mobileNo" placeholder="Enter Mobile number" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regType">Registration Type:</label>
+                        <select id="regType" required>
+                            <option value="">------Select Registration Type------</option>
+                            <option value="RMP Doctor">RMP Doctor</option>
+                            <option value="MBBS">MBBS</option>
+                            <option value="BAMS">BAMS</option>
+                            <option value="BHMS">BHMS</option>
+                            <option value="BUMS">BUMS</option>
+                            <option value="BNYS">BNYS</option>
+                            <option value="BPT (Physiotherapist)">BPT (Physiotherapist)</option>
+                            <option value="DMLT Professional">DMLT Professional</option>
+                            <option value="Lab Technician">Lab Technician</option>
+                            <option value="Pharmacist">Pharmacist</option>
+                            <option value="Staff Nurse">Staff Nurse</option>
+                            <option value="ANM">ANM</option>
+                            <option value="GNM">GNM</option>
+                            <option value="Community Health Officer">Community Health Officer</option>
+                            <option value="Clinic Owner">Clinic Owner</option>
+                            <option value="Other healthcare Professional">Other healthcare Professional</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="state">State:</label>
+                        <select id="state" required>
+                            <option value="">------Select State------</option>
+                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                            <option value="Daman and Diu">Daman and Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Ladakh">Ladakh</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group form-group-full">
+                        <label for="address">Residential Address:</label>
+                        <textarea id="address" rows="3" placeholder="Enter Residential Address" required></textarea>
+                    </div>
+                    
+                    <div class="form-group form-group-full">
+                        <label>Upload Your Photo:</label>
+                        <div class="file-upload-wrapper">
+                            <span class="file-upload-btn" id="fileBtn"><i class="fas fa-cloud-upload-alt"></i> Choose File - No file chosen</span>
+                            <input type="file" id="photo" accept="image/*" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="submit-btn-container">
+                    <button type="submit" class="submit-btn">SUBMIT</button>
+                </div>
+            </form>
+
+            <div id="formMsg" class="form-message"></div>
+
+            <!-- Dynamic Membership Card Preview -->
+            <div class="id-card-preview-section" id="previewSection">
+                <h3 style="text-align: center; color: var(--primary-blue); font-weight: 800; font-size: 1.3rem; margin-bottom: 20px;">Your Generated Membership ID Card</h3>
+                <div class="id-card-wrapper">
+                    <div class="id-header">
+                        <img src="assets/logo.png" alt="Logo" class="id-small-logo">
+                        <div class="id-header-text">
+                            <h4>MEDICAL PRACTITIONERS WELFARE ASSOCIATION</h4>
+                            <span>Registered Organization • Govt. of India</span>
+                        </div>
+                    </div>
+                    <div class="id-body">
+                        <div class="id-photo-wrap">
+                            <img src="" alt="Candidate Photo" id="cardPhoto" class="id-photo">
+                        </div>
+                        <div class="id-details">
+                            <h3 id="cardName">--</h3>
+                            <div class="id-meta-item"><strong>Regd ID:</strong> <span id="cardId">--</span></div>
+                            <div class="id-meta-item"><strong>Designation:</strong> <span id="cardDesignation">--</span></div>
+                            <div class="id-meta-item"><strong>Jurisdiction:</strong> <span id="cardState">--</span></div>
+                            <div class="id-meta-item"><strong>Validity:</strong> <span id="cardValidity">--</span></div>
+                            <div class="id-meta-item"><strong>Status:</strong> <span style="background: #2e7d32; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">ACTIVE</span></div>
+                        </div>
+                    </div>
+                    <div class="id-footer">
+                        * Unity • Welfare • Protection • Service • Excellence *
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer bg-blue">
+        <div class="container grid-4">
+            <div class="footer-col">
+                <div class="logo-container mb-20">
+                    <img src="assets/logo.png" alt="Logo" class="footer-logo">
+                    <span style="color:white; font-weight:bold; font-size:1.2rem;">MPWA</span>
+                </div>
+                <p>Dedicated to the welfare of medical practitioners and the health of society. Empowering healthcare professionals for a better tomorrow.</p>
+                <div class="social-links mt-20">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="donate.html">Donate Now</a></li>
+                    <li><a href="certificates.html">Certificates</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p class="dyn-address preserve-icon"><i class="fas fa-map-marker-alt"></i> Ludhiana, Punjab, India</p>
+                <p class="dyn-email preserve-icon"><i class="fas fa-envelope"></i> mpwaindia@gmail.com</p>
+                <p class="dyn-phone1 preserve-icon"><i class="fas fa-phone-alt"></i> +91 95922 07615</p>
+            </div>
+            <div class="footer-col">
+                <h3>Location</h3>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3424.4754593455327!2d75.8647038151336!3d30.87332398158739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a825b4ab4b60b%3A0xc3b83b3d2b0cf53!2sNew%20Janta%20Nagar%2C%20Ludhiana%2C%20Punjab%20141003" width="100%" height="150" style="border:0; border-radius: 4px;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Medical Practitioners Welfare Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Update label on file upload
+        const fileInput = document.getElementById('photo');
+        const fileBtn = document.getElementById('fileBtn');
+        let selectedFileUrl = '';
+        let base64Photo = '';
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                fileBtn.innerHTML = `<i class="fas fa-file-image"></i> ${file.name}`;
+                fileBtn.style.borderColor = '#2e7d32';
+                fileBtn.style.color = '#2e7d32';
+                selectedFileUrl = URL.createObjectURL(file);
+                
+                // Convert file to Base64 to save in localStorage
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    base64Photo = reader.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                fileBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Choose File - No file chosen';
+                fileBtn.style.borderColor = '#ccc';
+                fileBtn.style.color = '#666';
+                selectedFileUrl = '';
+                base64Photo = '';
+            }
+        });
+
+        // Form submission simulated & saved to localStorage
+        const regForm = document.getElementById('regForm');
+        const formMsg = document.getElementById('formMsg');
+        const previewSection = document.getElementById('previewSection');
+        
+        const cardPhoto = document.getElementById('cardPhoto');
+        const cardName = document.getElementById('cardName');
+        const cardId = document.getElementById('cardId');
+        const cardDesignation = document.getElementById('cardDesignation');
+        const cardState = document.getElementById('cardState');
+        const cardValidity = document.getElementById('cardValidity');
+        
+        regForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Generate random Membership ID Number
+            const randomId = 'MPWA-' + (new Date().getFullYear() % 100) + '-' + Math.floor(1000 + Math.random() * 9000);
+            
+            // Calculate validity date (5 years from today)
+            const today = new Date();
+            const validityDate = today.getDate().toString().padStart(2, '0') + '-' + 
+                                 (today.getMonth() + 1).toString().padStart(2, '0') + '-' + 
+                                 (today.getFullYear() + 5);
+
+            // Populate Card
+            const nameVal = document.getElementById('candidateName').value;
+            const regTypeVal = document.getElementById('regType').value;
+            const stateVal = document.getElementById('state').value;
+            
+            cardName.textContent = nameVal;
+            cardDesignation.textContent = regTypeVal;
+            cardState.textContent = stateVal;
+            cardId.textContent = randomId;
+            cardValidity.textContent = validityDate;
+            
+            if (selectedFileUrl) {
+                cardPhoto.src = selectedFileUrl;
+            } else {
+                cardPhoto.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(nameVal) + '&background=112240&color=fff&size=150';
+            }
+
+            // Save to localStorage so that check_registration.html can fetch it
+            const newMember = {
+                id: randomId,
+                name: nameVal,
+                designation: regTypeVal,
+                state: stateVal,
+                validity: validityDate,
+                photo: base64Photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(nameVal)}&background=112240&color=fff&size=150`
+            };
+
+            try {
+                const localRegistrations = JSON.parse(localStorage.getItem('mpwa_registrations') || '[]');
+                localRegistrations.push(newMember);
+                localStorage.setItem('mpwa_registrations', JSON.stringify(localRegistrations));
+            } catch (err) {
+                console.error('Error saving to localStorage:', err);
+            }
+
+            // Show Toast & Card
+            formMsg.style.display = 'block';
+            formMsg.className = 'form-message msg-success';
+            formMsg.innerHTML = `<i class="fas fa-check-circle"></i> Registration Successful! Your membership ID card has been generated below. <br><strong>Your Registration Number is: ${randomId}</strong>. You can now use this to check your status on the Check Registration page.`;
+            
+            previewSection.style.display = 'block';
+            
+            // Reset form controls
+            regForm.reset();
+            fileBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Choose File - No file chosen';
+            fileBtn.style.borderColor = '#ccc';
+            fileBtn.style.color = '#666';
+            
+            // Scroll to preview
+            setTimeout(() => {
+                previewSection.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
