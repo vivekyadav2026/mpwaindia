@@ -51,9 +51,9 @@
         .president-block img {
             width: 300px;
             height: 300px;
-            border-radius: 50%;
+            border-radius: 8px;
             object-fit: cover;
-            border: 5px solid var(--primary-red);
+            border: 4px solid #cbd5e1;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
@@ -126,7 +126,13 @@
             <nav class="desktop-nav">
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
+                    <li class="dropdown">
+                        <a href="about.html" class="active">About Us <i class="fas fa-chevron-down" style="font-size: 0.75rem; margin-left: 4px;"></i></a>
+                        <div class="dropdown-content">
+                            <a href="about.html">About Association</a>
+                            <a href="team.html">Our Team / Members</a>
+                        </div>
+                    </li>
                     <li><a href="donate.html">Donate Now</a></li>
                     <li><a href="certificates.html">Certificates</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
@@ -244,7 +250,13 @@
                 <h3>Quick Links</h3>
                 <ul class="footer-links">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
+                    <li class="dropdown">
+                        <a href="about.html" class="active">About Us <i class="fas fa-chevron-down" style="font-size: 0.75rem; margin-left: 4px;"></i></a>
+                        <div class="dropdown-content">
+                            <a href="about.html">About Association</a>
+                            <a href="team.html">Our Team / Members</a>
+                        </div>
+                    </li>
                     <!-- <!-- <li><a href="team.html">Our Team</a></li> --> -->
                     <li><a href="certificates.html">Certificates</a></li>
                     <li><a href="donate.html">Donate Now</a></li>
