@@ -1367,3 +1367,44 @@ section {
     }
 }
 
+/* Page Hero Global Styles */
+.page-hero {
+    background: linear-gradient(135deg, rgba(10, 25, 47, 0.88) 0%, rgba(211, 47, 47, 0.75) 100%),
+                url('../assets/images/banner_1.jpg?v=2.2') center/cover no-repeat;
+    padding: 90px 0 70px;
+    text-align: center;
+    color: white;
+    border-bottom: 5px solid var(--primary-red);
+}
+.page-hero .breadcrumb {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.page-hero .breadcrumb a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+}
+.page-hero .breadcrumb a:hover {
+    color: #fff;
+}
+.page-hero h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+}
+.page-hero p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.8);
+    max-width: 600px;
+    margin: 0 auto;
+}
+@media (max-width: 768px) {
+    .page-hero h1 {
+        font-size: 2.2rem;
+    }
+}
+

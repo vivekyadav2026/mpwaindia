@@ -399,7 +399,7 @@
         let currentIndex = 0;
 
         // Load dynamic gallery from gallery.json
-        fetch('gallery.json')
+        fetch('gallery.json?v=' + Date.now())
             .then(r => r.json())
             .then(images => {
                 const container = document.getElementById('galleryGrid');

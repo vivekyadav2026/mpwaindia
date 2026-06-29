@@ -197,8 +197,15 @@ if ($is_logged_in && isset($_POST['approve_request'])) {
             $new_member = [
                 'id' => $assigned_id,
                 'name' => $target_req['name'],
-                'designation' => $target_req['regType'],
-                'state' => $target_req['state'],
+                'fatherName' => $target_req['fatherName'] ?? '',
+                'motherName' => $target_req['motherName'] ?? '',
+                'aadharNo' => $target_req['aadharNo'] ?? '',
+                'dob' => $target_req['dob'] ?? '',
+                'mobileNo' => $target_req['mobileNo'] ?? '',
+                'designation' => $target_req['regType'] ?? 'RMP Doctor',
+                'state' => $target_req['state'] ?? 'Punjab',
+                'address' => $target_req['address'] ?? '',
+                'awardingBody' => $target_req['awardingBody'] ?? '',
                 'validity' => $validity,
                 'photo' => $target_req['photo'],
                 'show_on_website' => true
@@ -268,6 +275,13 @@ if ($is_logged_in && isset($_POST['update_member'])) {
     $original_id = $_POST['original_id'];
     $member_id = trim($_POST['id']);
     $member_name = trim($_POST['name']);
+    $father_name = trim($_POST['fatherName'] ?? '');
+    $mother_name = trim($_POST['motherName'] ?? '');
+    $aadhar_no = trim($_POST['aadharNo'] ?? '');
+    $dob = trim($_POST['dob'] ?? '');
+    $mobile_no = trim($_POST['mobileNo'] ?? '');
+    $address = trim($_POST['address'] ?? '');
+    $awarding_body = trim($_POST['awardingBody'] ?? '');
     $photo_path = $_POST['existing_photo'] ?? '';
 
     $upload_error = "";
@@ -287,8 +301,15 @@ if ($is_logged_in && isset($_POST['update_member'])) {
     $new_member = [
         "id" => $member_id,
         "name" => $member_name,
+        "fatherName" => $father_name,
+        "motherName" => $mother_name,
+        "aadharNo" => $aadhar_no,
+        "dob" => $dob,
+        "mobileNo" => $mobile_no,
         "designation" => trim($_POST['designation']),
         "state" => trim($_POST['state']),
+        "address" => $address,
+        "awardingBody" => $awarding_body,
         "validity" => trim($_POST['validity']),
         "photo" => $photo_path,
         "show_on_website" => isset($_POST['show_on_website']) ? true : false
@@ -314,6 +335,79 @@ if ($is_logged_in && isset($_POST['update_member'])) {
         header("Location: admin.php?tab=members");
         exit;
     }
+}
+
+// ---- HANDLE: ADD MEMBER ----
+if ($is_logged_in && isset($_POST['add_member'])) {
+    $member_id = trim($_POST['id']);
+    $member_name = trim($_POST['name']);
+    $father_name = trim($_POST['fatherName'] ?? '');
+    $mother_name = trim($_POST['motherName'] ?? '');
+    $aadhar_no = trim($_POST['aadharNo'] ?? '');
+    $dob = trim($_POST['dob'] ?? '');
+    $mobile_no = trim($_POST['mobileNo'] ?? '');
+    $designation = trim($_POST['designation']);
+    $state = trim($_POST['state']);
+    $address = trim($_POST['address'] ?? '');
+    $awarding_body = trim($_POST['awardingBody'] ?? '');
+    $validity = trim($_POST['validity']);
+    $show_on_website = isset($_POST['show_on_website']) ? true : false;
+    $photo_path = "";
+
+    $upload_error = "";
+    if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+        $ext = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION));
+        if (in_array($ext, ['jpg','jpeg','png','gif','webp'])) {
+            $safe_id = preg_replace('/[^A-Za-z0-9_\-]/', '_', $member_id);
+            $fname = $photos_dir . $safe_id . '_' . time() . '.' . $ext;
+            if (compressImage($_FILES['photo']['tmp_name'], $fname, 800, 75)) {
+                $photo_path = $fname;
+            } else {
+                $upload_error = "<div class='msg error'>Photo upload failed. Check permissions.</div>";
+            }
+        }
+    }
+    
+    if (empty($photo_path)) {
+        $photo_path = "https://ui-avatars.com/api/?name=" . urlencode($member_name) . "&background=112240&color=fff&size=150";
+    }
+
+    $current_data = getMembers();
+    $exists = false;
+    foreach ($current_data as $m) {
+        if (strtoupper($m['id']) === strtoupper($member_id)) {
+            $exists = true; break;
+        }
+    }
+
+    if ($exists) {
+        $_SESSION['message'] = "<div class='msg error'>Error: Registration ID <strong>$member_id</strong> already exists!</div>";
+    } else {
+        $new_member = [
+            "id" => $member_id,
+            "name" => $member_name,
+            "fatherName" => $father_name,
+            "motherName" => $mother_name,
+            "aadharNo" => $aadhar_no,
+            "dob" => $dob,
+            "mobileNo" => $mobile_no,
+            "designation" => $designation,
+            "state" => $state,
+            "address" => $address,
+            "awardingBody" => $awarding_body,
+            "validity" => $validity,
+            "photo" => $photo_path,
+            "show_on_website" => $show_on_website
+        ];
+        $current_data[] = $new_member;
+        if (saveMembers($current_data)) {
+            $_SESSION['message'] = $upload_error . "<div class='msg success'>Member successfully registered with ID: <strong>$member_id</strong></div>";
+        } else {
+            $_SESSION['message'] = "<div class='msg error'>Error processing files.</div>";
+        }
+    }
+    header("Location: admin.php?tab=members");
+    exit;
 }
 
 // ---- OTHER HANDLERS ----
@@ -531,6 +625,14 @@ $unread_count = count(array_filter($msgs, fn($m) => ($m['status'] ?? 'unread') =
                 form.style.display = 'none';
             }
         }
+        function toggleAddMemberForm() {
+            const form = document.getElementById('add-member-form');
+            if(form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        }
     </script>
 </head>
 <body>
@@ -726,6 +828,10 @@ $unread_count = count(array_filter($msgs, fn($m) => ($m['status'] ?? 'unread') =
                     <input type="hidden" name="original_id" value="<?= htmlspecialchars($edit_data['id']) ?>">
                     <input type="hidden" name="existing_photo" value="<?= htmlspecialchars($edit_data['photo']) ?>">
                     <div class="form-grid">
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label>Name of the university/Board/Council awarding Certificate *</label>
+                            <input type="text" name="awardingBody" required value="<?= htmlspecialchars($edit_data['awardingBody'] ?? '') ?>">
+                        </div>
                         <div class="form-group">
                             <label>Registration ID *</label>
                             <input type="text" name="id" required value="<?= htmlspecialchars($edit_data['id']) ?>">
@@ -735,16 +841,40 @@ $unread_count = count(array_filter($msgs, fn($m) => ($m['status'] ?? 'unread') =
                             <input type="text" name="name" required value="<?= htmlspecialchars($edit_data['name']) ?>">
                         </div>
                         <div class="form-group">
+                            <label>Father Name *</label>
+                            <input type="text" name="fatherName" required value="<?= htmlspecialchars($edit_data['fatherName'] ?? '') ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Mother Name *</label>
+                            <input type="text" name="motherName" required value="<?= htmlspecialchars($edit_data['motherName'] ?? '') ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Aadhar number *</label>
+                            <input type="text" name="aadharNo" required value="<?= htmlspecialchars($edit_data['aadharNo'] ?? '') ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth *</label>
+                            <input type="date" name="dob" required value="<?= htmlspecialchars($edit_data['dob'] ?? '') ?>" style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile number *</label>
+                            <input type="text" name="mobileNo" required value="<?= htmlspecialchars($edit_data['mobileNo'] ?? '') ?>">
+                        </div>
+                        <div class="form-group">
                             <label>Designation *</label>
                             <input type="text" name="designation" required value="<?= htmlspecialchars($edit_data['designation']) ?>">
                         </div>
                         <div class="form-group">
                             <label>State *</label>
-                            <input type="text" name="state" required value="<?= htmlspecialchars($edit_data['state']) ?>">
+                            <input type="text" name="state" required value="<?= htmlspecialchars($edit_data['state'] ?? '') ?>">
                         </div>
                         <div class="form-group">
                             <label>Validity *</label>
-                            <input type="text" name="validity" required value="<?= htmlspecialchars($edit_data['validity']) ?>">
+                            <input type="text" name="validity" required value="<?= htmlspecialchars($edit_data['validity'] ?? '') ?>">
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label>Residential Address *</label>
+                            <textarea name="address" rows="3" required style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;"><?= htmlspecialchars($edit_data['address'] ?? '') ?></textarea>
                         </div>
                         <div class="form-group">
                             <label>Show on Website</label>
@@ -765,6 +895,141 @@ $unread_count = count(array_filter($msgs, fn($m) => ($m['status'] ?? 'unread') =
                 </form>
             </div>
             <?php endif; ?>
+
+            <!-- Add Member Trigger Button -->
+            <div style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
+                <button type="button" class="btn btn-green" onclick="toggleAddMemberForm()">
+                    <i class="fas fa-user-plus"></i> Add New Member
+                </button>
+            </div>
+
+            <!-- Add Member Form -->
+            <div class="card" id="add-member-form" style="display: none;">
+                <div class="card-title"><i class="fas fa-user-plus"></i> Add New Member Profile</div>
+                <form method="POST" action="admin.php?tab=members" enctype="multipart/form-data">
+                    <div class="form-grid">
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label>Name of the university/Board/Council awarding Certificate *</label>
+                            <input type="text" name="awardingBody" required placeholder="Enter awarding university/board/council">
+                        </div>
+                        <div class="form-group">
+                            <label>Registration ID *</label>
+                            <input type="text" name="id" required value="<?= htmlspecialchars(getNextMpwaId()) ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name of candidate *</label>
+                            <input type="text" name="name" required placeholder="Enter full name of candidate">
+                        </div>
+                        <div class="form-group">
+                            <label>Father Name *</label>
+                            <input type="text" name="fatherName" required placeholder="Enter Father Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Mother Name *</label>
+                            <input type="text" name="motherName" required placeholder="Enter Mother Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Aadhar number *</label>
+                            <input type="text" name="aadharNo" required placeholder="Enter Aadhar number">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth *</label>
+                            <input type="date" name="dob" required style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile number *</label>
+                            <input type="text" name="mobileNo" required placeholder="Enter Mobile number">
+                        </div>
+                        <div class="form-group">
+                            <label>Registration Type (Designation) *</label>
+                            <select name="designation" required style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;">
+                                <option value="">------Select Registration Type------</option>
+                                <option value="RMP Doctor">RMP Doctor</option>
+                                <option value="BAMS">BAMS</option>
+                                <option value="BHMS">BHMS</option>
+                                <option value="BUMS">BUMS</option>
+                                <option value="BNYS">BNYS</option>
+                                <option value="BPT (Physiotherapist)">BPT (Physiotherapist)</option>
+                                <option value="DMLT Professional">DMLT Professional</option>
+                                <option value="Lab Technician">Lab Technician</option>
+                                <option value="Pharmacist">Pharmacist</option>
+                                <option value="Staff Nurse">Staff Nurse</option>
+                                <option value="ANM">ANM</option>
+                                <option value="GNM">GNM</option>
+                                <option value="Community Health Officer">Community Health Officer</option>
+                                <option value="Clinic Owner">Clinic Owner</option>
+                                <option value="Other healthcare Professional">Other healthcare Professional</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>State *</label>
+                            <select name="state" required style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;">
+                                <option value="">------Select State------</option>
+                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                                <option value="Daman and Diu">Daman and Diu</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Ladakh">Ladakh</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Puducherry">Puducherry</option>
+                                <option value="Punjab" selected>Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Validity Date (e.g. 5 Years or Lifetime) *</label>
+                            <input type="text" name="validity" required value="<?= date('d-M-Y', strtotime('+5 years')) ?>">
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label>Residential Address *</label>
+                            <textarea name="address" rows="3" required placeholder="Enter Residential Address" style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Show on Website</label>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
+                                <input type="checkbox" name="show_on_website" id="add_show_on_website" value="1" checked style="width: auto;">
+                                <label for="add_show_on_website" style="margin: 0; font-weight: normal; cursor: pointer;">Show on homepage leaders grid</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Photo (Optional)</label>
+                            <input type="file" name="photo" accept="image/*">
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; display: flex; gap: 10px;">
+                        <button type="submit" name="add_member" class="btn btn-green"><i class="fas fa-plus"></i> Add Member</button>
+                        <button type="button" class="btn btn-gray" onclick="toggleAddMemberForm()">Cancel</button>
+                    </div>
+                </form>
+            </div>
 
             <div class="card">
                 <div class="card-title"><i class="fas fa-list"></i> Approved Members Base (<?= count($members) ?>)</div>

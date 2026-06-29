@@ -117,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                  .replace(/\s+/g, '')       // remove spaces
                  .replace(/\./g, '')        // remove dots
                  .replace(/^(REGDNO|REGD|REG|NO)/g, '') // remove prefixes
+                 .replace(/^(MPWA|TACC)/g, '')
                  .replace(/^NO/g, '');      // remove leftover NO prefix
     }
 
@@ -151,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 2. Fallback to data.json
-        fetch('data.json')
+        fetch('data.json?v=' + Date.now())
             .then(response => response.json())
             .then(membersDatabase => {
                 setTimeout(() => {
@@ -197,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dynamicLeadersTeam = document.getElementById('dynamic-team-grid');
 
     if (dynamicPresidentIndex || dynamicPresidentTeam) {
-        fetch('data.json')
+        fetch('data.json?v=' + Date.now())
             .then(response => response.json())
             .then(allMembers => {
                 const members = allMembers.filter(m => m.show_on_website === true);
@@ -256,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Dynamic Gallery ---
     const dynamicGalleryIndex = document.getElementById('dynamic-gallery-index');
     if (dynamicGalleryIndex) {
-        fetch('gallery.json')
+        fetch('gallery.json?v=' + Date.now())
             .then(res => res.json())
             .then(images => {
                 if (images.length === 0) {
@@ -276,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dynamicCertificatesIndex = document.getElementById('dynamic-certificates-index');
     const dynamicCertificatesAll = document.getElementById('dynamic-certificates-all');
     if (dynamicCertificatesIndex || dynamicCertificatesAll) {
-        fetch('certificates.json')
+        fetch('certificates.json?v=' + Date.now())
             .then(res => res.json())
             .then(certs => {
                 if (certs.length === 0) {
@@ -323,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Dynamic Settings & Contact Info ---
-    fetch('settings.json')
+    fetch('settings.json?v=' + Date.now())
         .then(res => res.json())
         .then(settings => {
             // QR Code

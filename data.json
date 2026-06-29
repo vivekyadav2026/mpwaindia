@@ -16,5 +16,21 @@
         "validity": "29-Jun-2031",
         "photo": "assets\/photos\/pending_1782740728_8856.png",
         "show_on_website": true
+    },
+    {
+        "id": "MPWA-26-5003",
+        "name": "suryaparent suryamaurya",
+        "fatherName": "45df",
+        "motherName": "fdsfdsf",
+        "aadharNo": "43543453",
+        "dob": "2026-06-25",
+        "mobileNo": "424234",
+        "designation": "BNYS",
+        "state": "Meghalaya",
+        "address": "dasdd\r\ndasdsa",
+        "awardingBody": "suryaparent suryamaurya",
+        "validity": "29-Jun-2031",
+        "photo": "https:\/\/ui-avatars.com\/api\/?name=suryaparent+suryamaurya&background=112240&color=fff&size=150",
+        "show_on_website": true
     }
 ]

@@ -360,7 +360,7 @@
         </div>
     </footer>
 
-    <script src="js/app.js"></script>
+    <script src="js/app.js?v=2.2"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const searchBtn = document.getElementById('searchBtn');
@@ -435,7 +435,7 @@
                 }
 
                 // 2. If not found in localStorage, fetch and search the official data.json database
-                fetch('data.json')
+                fetch('data.json?v=' + Date.now())
                     .then(response => response.json())
                     .then(membersDatabase => {
                         setTimeout(() => {
