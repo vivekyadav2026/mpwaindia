@@ -340,15 +340,7 @@
             
             <form id="regForm" enctype="multipart/form-data">
                 <div class="form-grid">
-                    <div class="form-group">
-                        <label for="courseName">Course name for registration:</label>
-                        <input type="text" id="courseName" placeholder="Enter course name for registration" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="eduCenter">Name of education center:</label>
-                        <input type="text" id="eduCenter" placeholder="Enter name of education center" required>
-                    </div>
+
                     
                     <div class="form-group form-group-full">
                         <label for="awardingBody">Name of the university/Board/Council awarding Certificate:</label>
@@ -390,7 +382,6 @@
                         <select id="regType" required>
                             <option value="">------Select Registration Type------</option>
                             <option value="RMP Doctor">RMP Doctor</option>
-                            <option value="MBBS">MBBS</option>
                             <option value="BAMS">BAMS</option>
                             <option value="BHMS">BHMS</option>
                             <option value="BUMS">BUMS</option>
@@ -473,35 +464,7 @@
 
             <div id="formMsg" class="form-message"></div>
 
-            <!-- Dynamic Membership Card Preview -->
-            <div class="id-card-preview-section" id="previewSection">
-                <h3 style="text-align: center; color: var(--primary-blue); font-weight: 800; font-size: 1.3rem; margin-bottom: 20px;">Your Generated Membership ID Card</h3>
-                <div class="id-card-wrapper">
-                    <div class="id-header">
-                        <img src="assets/logo.png" alt="Logo" class="id-small-logo">
-                        <div class="id-header-text">
-                            <h4>MEDICAL PRACTITIONERS WELFARE ASSOCIATION</h4>
-                            <span>Registered Organization • Govt. of India</span>
-                        </div>
-                    </div>
-                    <div class="id-body">
-                        <div class="id-photo-wrap">
-                            <img src="" alt="Candidate Photo" id="cardPhoto" class="id-photo">
-                        </div>
-                        <div class="id-details">
-                            <h3 id="cardName">--</h3>
-                            <div class="id-meta-item"><strong>Regd ID:</strong> <span id="cardId">--</span></div>
-                            <div class="id-meta-item"><strong>Designation:</strong> <span id="cardDesignation">--</span></div>
-                            <div class="id-meta-item"><strong>Jurisdiction:</strong> <span id="cardState">--</span></div>
-                            <div class="id-meta-item"><strong>Validity:</strong> <span id="cardValidity">--</span></div>
-                            <div class="id-meta-item"><strong>Status:</strong> <span style="background: #2e7d32; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">ACTIVE</span></div>
-                        </div>
-                    </div>
-                    <div class="id-footer">
-                        * Unity • Welfare • Protection • Service • Excellence *
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -534,8 +497,8 @@
             </div>
             <div class="footer-col">
                 <h3>Contact Info</h3>
-                <p class="dyn-address preserve-icon"><i class="fas fa-map-marker-alt"></i> Ludhiana, Punjab, India</p>
-                <p class="dyn-email preserve-icon"><i class="fas fa-envelope"></i> mpwaindia@gmail.com</p>
+                <p class="dyn-address preserve-icon"><i class="fas fa-map-marker-alt"></i> Street No.1, Bachitter Nagar, Near GNE College, Gill Road, Ludhiana-141006 (Pb)</p>
+                <p class="dyn-email preserve-icon"><i class="fas fa-envelope"></i> mpwarindia@gmail.com</p>
                 <p class="dyn-phone1 preserve-icon"><i class="fas fa-phone-alt"></i> +91 95922 07615</p>
             </div>
             <div class="footer-col">
@@ -579,82 +542,70 @@
             }
         });
 
-        // Form submission simulated & saved to localStorage
+        // Form submission post to server
         const regForm = document.getElementById('regForm');
         const formMsg = document.getElementById('formMsg');
-        const previewSection = document.getElementById('previewSection');
-        
-        const cardPhoto = document.getElementById('cardPhoto');
-        const cardName = document.getElementById('cardName');
-        const cardId = document.getElementById('cardId');
-        const cardDesignation = document.getElementById('cardDesignation');
-        const cardState = document.getElementById('cardState');
-        const cardValidity = document.getElementById('cardValidity');
         
         regForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Generate random Membership ID Number
-            const randomId = 'MPWA-' + (new Date().getFullYear() % 100) + '-' + Math.floor(1000 + Math.random() * 9000);
-            
-            // Calculate validity date (5 years from today)
-            const today = new Date();
-            const validityDate = today.getDate().toString().padStart(2, '0') + '-' + 
-                                 (today.getMonth() + 1).toString().padStart(2, '0') + '-' + 
-                                 (today.getFullYear() + 5);
-
-            // Populate Card
-            const nameVal = document.getElementById('candidateName').value;
-            const regTypeVal = document.getElementById('regType').value;
-            const stateVal = document.getElementById('state').value;
-            
-            cardName.textContent = nameVal;
-            cardDesignation.textContent = regTypeVal;
-            cardState.textContent = stateVal;
-            cardId.textContent = randomId;
-            cardValidity.textContent = validityDate;
-            
-            if (selectedFileUrl) {
-                cardPhoto.src = selectedFileUrl;
-            } else {
-                cardPhoto.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(nameVal) + '&background=112240&color=fff&size=150';
-            }
-
-            // Save to localStorage so that check_registration.html can fetch it
-            const newMember = {
-                id: randomId,
-                name: nameVal,
-                designation: regTypeVal,
-                state: stateVal,
-                validity: validityDate,
-                photo: base64Photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(nameVal)}&background=112240&color=fff&size=150`
-            };
-
-            try {
-                const localRegistrations = JSON.parse(localStorage.getItem('mpwa_registrations') || '[]');
-                localRegistrations.push(newMember);
-                localStorage.setItem('mpwa_registrations', JSON.stringify(localRegistrations));
-            } catch (err) {
-                console.error('Error saving to localStorage:', err);
-            }
-
-            // Show Toast & Card
             formMsg.style.display = 'block';
             formMsg.className = 'form-message msg-success';
-            formMsg.innerHTML = `<i class="fas fa-check-circle"></i> Registration Successful! Your membership ID card has been generated below. <br><strong>Your Registration Number is: ${randomId}</strong>. You can now use this to check your status on the Check Registration page.`;
-            
-            previewSection.style.display = 'block';
-            
-            // Reset form controls
-            regForm.reset();
-            fileBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Choose File - No file chosen';
-            fileBtn.style.borderColor = '#ccc';
-            fileBtn.style.color = '#666';
-            
-            // Scroll to preview
-            setTimeout(() => {
-                previewSection.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+            formMsg.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Submitting application, please wait...`;
+
+            const nameVal = document.getElementById('candidateName').value;
+            const fatherNameVal = document.getElementById('fatherName').value;
+            const motherNameVal = document.getElementById('motherName').value;
+            const aadharNoVal = document.getElementById('aadharNo').value;
+            const dobVal = document.getElementById('dob').value;
+            const mobileNoVal = document.getElementById('mobileNo').value;
+            const regTypeVal = document.getElementById('regType').value;
+            const stateVal = document.getElementById('state').value;
+            const addressVal = document.getElementById('address').value;
+            const awardingBodyVal = document.getElementById('awardingBody').value;
+
+            const payload = {
+                name: nameVal,
+                fatherName: fatherNameVal,
+                motherName: motherNameVal,
+                aadharNo: aadharNoVal,
+                dob: dobVal,
+                mobileNo: mobileNoVal,
+                regType: regTypeVal,
+                state: stateVal,
+                address: addressVal,
+                awardingBody: awardingBodyVal,
+                photo: base64Photo
+            };
+
+            fetch('submit_registration.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    formMsg.className = 'form-message msg-success';
+                    formMsg.innerHTML = `<i class="fas fa-check-circle"></i> Application Submitted Successfully!<br>Your Application Reference Number is: <strong>${data.request_id}</strong>.<br>Please keep this for your reference. The admin will verify your details, complete formalities, assign your official Registration Number, and activate your ID card.`;
+                    regForm.reset();
+                    fileBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Choose File - No file chosen';
+                    fileBtn.style.borderColor = '#ccc';
+                    fileBtn.style.color = '#666';
+                    base64Photo = '';
+                    selectedFileUrl = '';
+                } else {
+                    formMsg.className = 'form-message msg-error';
+                    formMsg.innerHTML = `<i class="fas fa-times-circle"></i> Error: ${data.message}`;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                formMsg.className = 'form-message msg-error';
+                formMsg.innerHTML = `<i class="fas fa-times-circle"></i> Something went wrong. Please check your network connection and try again.`;
+            });
         });
     </script>
 </body>
