@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dynamicPresidentTeam = document.getElementById('dynamic-team-president');
     const dynamicLeadersTeam = document.getElementById('dynamic-team-grid');
 
-    if (dynamicPresidentIndex || dynamicPresidentTeam) {
+    if (dynamicPresidentIndex || dynamicLeadersIndex || dynamicPresidentTeam || dynamicLeadersTeam) {
         fetch('data.json?v=' + Date.now())
             .then(response => response.json())
             .then(allMembers => {
