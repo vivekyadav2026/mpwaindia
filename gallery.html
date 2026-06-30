@@ -298,18 +298,7 @@
         <div class="container">
             <p class="gallery-count" id="galleryCount">Loading images...</p>
             <div class="gallery-masonry" id="galleryGrid">
-                <!-- Static images always shown -->
-
-                
-
-                <div class="gallery-item" data-category="poster" data-src="assets/images/oath_hindi_1781000633871.png" data-caption="MPWA Integrity Oath Poster — Hindi">
-                    <img src="assets/images/oath_hindi_1781000633871.png" alt="Oath Hindi" loading="lazy">
-                    <div class="gallery-overlay">
-                        <div class="gallery-overlay-icon"><i class="fas fa-search-plus"></i></div>
-                        <span class="gallery-overlay-text">Oath Poster (Hindi)</span>
-                    </div>
-                </div>
-
+                <!-- All images loaded dynamically from gallery.json -->
             </div>
         </div>
     </section>
@@ -384,22 +373,26 @@
 
     <script src="js/app.js?v=2.1"></script>
     <script>
-        // ---- GALLERY DATA ----
-        const staticItems = Array.from(document.querySelectorAll('.gallery-item[data-src]'));
-        let allItems = [...staticItems];
+        // ---- GALLERY - Fully Dynamic from gallery.json ----
+        let allItems = [];
         let currentIndex = 0;
 
-        // Load dynamic gallery from gallery.json
+        // Load all gallery images from gallery.json
         fetch('gallery.json?v=' + Date.now())
             .then(r => r.json())
             .then(images => {
                 const container = document.getElementById('galleryGrid');
+                const countEl = document.getElementById('galleryCount');
+
+                if (!images || images.length === 0) {
+                    container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;grid-column:1/-1;">No images in gallery yet. Add from Admin Panel.</p>';
+                    countEl.textContent = '0 Photos';
+                    return;
+                }
+
                 images.forEach((src, i) => {
-                    // Avoid duplicate static images
-                    if (staticItems.some(el => el.dataset.src === src)) return;
                     const div = document.createElement('div');
                     div.className = 'gallery-item';
-                    div.dataset.category = 'event';
                     div.dataset.src = src;
                     div.dataset.caption = 'MPWA — Photo ' + (i + 1);
                     div.innerHTML = `
@@ -410,29 +403,25 @@
                         </div>`;
                     container.appendChild(div);
                 });
-                refreshItems();
+
+                allItems = Array.from(document.querySelectorAll('.gallery-item[data-src]'));
+                countEl.textContent = allItems.length + ' Photos';
+                attachClickHandlers();
             })
             .catch(() => {
-                refreshItems();
+                document.getElementById('galleryCount').textContent = '0 Photos';
             });
-
-        function refreshItems() {
-            allItems = Array.from(document.querySelectorAll('.gallery-item[data-src]'));
-            document.getElementById('galleryCount').textContent = allItems.length + ' Photos';
-            attachClickHandlers();
-        }
 
         // ---- LIGHTBOX ----
         function attachClickHandlers() {
-            document.querySelectorAll('.gallery-item[data-src]').forEach((item, index) => {
+            allItems.forEach((item, index) => {
                 item.addEventListener('click', () => openLightbox(index));
             });
         }
 
         function openLightbox(index) {
             currentIndex = index;
-            const items = Array.from(document.querySelectorAll('.gallery-item[data-src]:not([style*="display: none"])'));
-            const item = items[currentIndex] || allItems[currentIndex];
+            const item = allItems[currentIndex];
             document.getElementById('lightboxImg').src = item.dataset.src;
             document.getElementById('lightboxCaption').textContent = item.dataset.caption || '';
             document.getElementById('lightboxCounter').textContent = (currentIndex + 1) + ' / ' + allItems.length;
@@ -466,10 +455,6 @@
             if (e.key === 'ArrowLeft') navigateLightbox(-1);
             if (e.key === 'ArrowRight') navigateLightbox(1);
         });
-
-        // Initial count
-        document.getElementById('galleryCount').textContent = document.querySelectorAll('.gallery-item[data-src]').length + ' Photos';
-        attachClickHandlers();
     </script>
 </body>
 </html>
