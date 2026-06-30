@@ -275,14 +275,16 @@ if ($is_logged_in && isset($_POST['update_member'])) {
     $original_id = $_POST['original_id'];
     $member_id = trim($_POST['id']);
     $member_name = trim($_POST['name']);
-    $father_name = trim($_POST['fatherName'] ?? '');
-    $mother_name = trim($_POST['motherName'] ?? '');
-    $aadhar_no = trim($_POST['aadharNo'] ?? '');
-    $dob = trim($_POST['dob'] ?? '');
-    $mobile_no = trim($_POST['mobileNo'] ?? '');
-    $address = trim($_POST['address'] ?? '');
-    $awarding_body = trim($_POST['awardingBody'] ?? '');
     $photo_path = $_POST['existing_photo'] ?? '';
+
+    // Find the existing member data to preserve detailed fields if they exist
+    $existing_member = null;
+    foreach ($current_data as $m) {
+        if (strtoupper($m['id']) === strtoupper($original_id)) {
+            $existing_member = $m;
+            break;
+        }
+    }
 
     $upload_error = "";
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
@@ -301,15 +303,15 @@ if ($is_logged_in && isset($_POST['update_member'])) {
     $new_member = [
         "id" => $member_id,
         "name" => $member_name,
-        "fatherName" => $father_name,
-        "motherName" => $mother_name,
-        "aadharNo" => $aadhar_no,
-        "dob" => $dob,
-        "mobileNo" => $mobile_no,
+        "fatherName" => $existing_member['fatherName'] ?? '',
+        "motherName" => $existing_member['motherName'] ?? '',
+        "aadharNo" => $existing_member['aadharNo'] ?? '',
+        "dob" => $existing_member['dob'] ?? '',
+        "mobileNo" => $existing_member['mobileNo'] ?? '',
         "designation" => trim($_POST['designation']),
         "state" => trim($_POST['state']),
-        "address" => $address,
-        "awardingBody" => $awarding_body,
+        "address" => $existing_member['address'] ?? '',
+        "awardingBody" => $existing_member['awardingBody'] ?? '',
         "validity" => trim($_POST['validity']),
         "photo" => $photo_path,
         "show_on_website" => isset($_POST['show_on_website']) ? true : false
@@ -341,15 +343,8 @@ if ($is_logged_in && isset($_POST['update_member'])) {
 if ($is_logged_in && isset($_POST['add_member'])) {
     $member_id = trim($_POST['id']);
     $member_name = trim($_POST['name']);
-    $father_name = trim($_POST['fatherName'] ?? '');
-    $mother_name = trim($_POST['motherName'] ?? '');
-    $aadhar_no = trim($_POST['aadharNo'] ?? '');
-    $dob = trim($_POST['dob'] ?? '');
-    $mobile_no = trim($_POST['mobileNo'] ?? '');
     $designation = trim($_POST['designation']);
     $state = trim($_POST['state']);
-    $address = trim($_POST['address'] ?? '');
-    $awarding_body = trim($_POST['awardingBody'] ?? '');
     $validity = trim($_POST['validity']);
     $show_on_website = isset($_POST['show_on_website']) ? true : false;
     $photo_path = "";
@@ -386,15 +381,15 @@ if ($is_logged_in && isset($_POST['add_member'])) {
         $new_member = [
             "id" => $member_id,
             "name" => $member_name,
-            "fatherName" => $father_name,
-            "motherName" => $mother_name,
-            "aadharNo" => $aadhar_no,
-            "dob" => $dob,
-            "mobileNo" => $mobile_no,
+            "fatherName" => "",
+            "motherName" => "",
+            "aadharNo" => "",
+            "dob" => "",
+            "mobileNo" => "",
             "designation" => $designation,
             "state" => $state,
-            "address" => $address,
-            "awardingBody" => $awarding_body,
+            "address" => "",
+            "awardingBody" => "",
             "validity" => $validity,
             "photo" => $photo_path,
             "show_on_website" => $show_on_website
@@ -828,37 +823,13 @@ $unread_count = count(array_filter($msgs, fn($m) => ($m['status'] ?? 'unread') =
                     <input type="hidden" name="original_id" value="<?= htmlspecialchars($edit_data['id']) ?>">
                     <input type="hidden" name="existing_photo" value="<?= htmlspecialchars($edit_data['photo']) ?>">
                     <div class="form-grid">
-                        <div class="form-group" style="grid-column: span 2;">
-                            <label>Name of the university/Board/Council awarding Certificate *</label>
-                            <input type="text" name="awardingBody" required value="<?= htmlspecialchars($edit_data['awardingBody'] ?? '') ?>">
-                        </div>
                         <div class="form-group">
-                            <label>Registration ID *</label>
-                            <input type="text" name="id" required value="<?= htmlspecialchars($edit_data['id']) ?>">
+                            <label>Registration ID (TACC ID) *</label>
+                            <input type="text" name="id" required value="<?= htmlspecialchars($edit_data['id']) ?>" placeholder="Regd.no.Tacc/00/00001">
                         </div>
                         <div class="form-group">
                             <label>Full Name *</label>
                             <input type="text" name="name" required value="<?= htmlspecialchars($edit_data['name']) ?>">
-                        </div>
-                        <div class="form-group">
-                            <label>Father Name *</label>
-                            <input type="text" name="fatherName" required value="<?= htmlspecialchars($edit_data['fatherName'] ?? '') ?>">
-                        </div>
-                        <div class="form-group">
-                            <label>Mother Name *</label>
-                            <input type="text" name="motherName" required value="<?= htmlspecialchars($edit_data['motherName'] ?? '') ?>">
-                        </div>
-                        <div class="form-group">
-                            <label>Aadhar number *</label>
-                            <input type="text" name="aadharNo" required value="<?= htmlspecialchars($edit_data['aadharNo'] ?? '') ?>">
-                        </div>
-                        <div class="form-group">
-                            <label>Date of Birth *</label>
-                            <input type="date" name="dob" required value="<?= htmlspecialchars($edit_data['dob'] ?? '') ?>" style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;">
-                        </div>
-                        <div class="form-group">
-                            <label>Mobile number *</label>
-                            <input type="text" name="mobileNo" required value="<?= htmlspecialchars($edit_data['mobileNo'] ?? '') ?>">
                         </div>
                         <div class="form-group">
                             <label>Designation *</label>
@@ -866,21 +837,17 @@ $unread_count = count(array_filter($msgs, fn($m) => ($m['status'] ?? 'unread') =
                         </div>
                         <div class="form-group">
                             <label>State *</label>
-                            <input type="text" name="state" required value="<?= htmlspecialchars($edit_data['state'] ?? '') ?>">
+                            <input type="text" name="state" required value="<?= htmlspecialchars($edit_data['state'] ?? '') ?>" placeholder="e.g. Punjab, Delhi">
                         </div>
                         <div class="form-group">
-                            <label>Validity *</label>
-                            <input type="text" name="validity" required value="<?= htmlspecialchars($edit_data['validity'] ?? '') ?>">
-                        </div>
-                        <div class="form-group" style="grid-column: span 2;">
-                            <label>Residential Address *</label>
-                            <textarea name="address" rows="3" required style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;"><?= htmlspecialchars($edit_data['address'] ?? '') ?></textarea>
+                            <label>Validity</label>
+                            <input type="text" name="validity" value="<?= htmlspecialchars($edit_data['validity'] ?? '') ?>" placeholder="e.g. Lifetime, Dec 2028">
                         </div>
                         <div class="form-group">
                             <label>Show on Website</label>
                             <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
                                 <input type="checkbox" name="show_on_website" id="show_on_website" value="1" <?= (!empty($edit_data['show_on_website'])) ? 'checked' : '' ?> style="width: auto;">
-                                <label for="show_on_website" style="margin: 0; font-weight: normal; cursor: pointer;">Show on homepage leaders grid</label>
+                                <label for="show_on_website" style="margin: 0; font-weight: normal; cursor: pointer;">Tick to show on user side</label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -908,124 +875,57 @@ $unread_count = count(array_filter($msgs, fn($m) => ($m['status'] ?? 'unread') =
                 <div class="card-title"><i class="fas fa-user-plus"></i> Add New Member Profile</div>
                 <form method="POST" action="admin.php?tab=members" enctype="multipart/form-data">
                     <div class="form-grid">
-                        <div class="form-group" style="grid-column: span 2;">
-                            <label>Name of the university/Board/Council awarding Certificate *</label>
-                            <input type="text" name="awardingBody" required placeholder="Enter awarding university/board/council">
-                        </div>
+                        <!-- Column 1 -->
                         <div class="form-group">
-                            <label>Registration ID *</label>
-                            <input type="text" name="id" required value="<?= htmlspecialchars(getNextMpwaId()) ?>">
+                            <label>Registration ID (TACC ID) *</label>
+                            <input type="text" name="id" required value="<?= htmlspecialchars(getNextMpwaId()) ?>" placeholder="Regd.no.Tacc/00/00001">
+                            <div style="margin-top: 5px;">
+                                <span style="background:#0A192F; color: #fff; font-size: 0.72rem; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block;">Next ID: <?= htmlspecialchars(getNextMpwaId()) ?></span>
+                            </div>
+                            <div style="font-size: 0.72rem; color: #888; margin-top: 4px;">Format: Regd.no.Tacc/00/00001</div>
                         </div>
+                        
+                        <!-- Column 2 -->
                         <div class="form-group">
-                            <label>Full Name of candidate *</label>
-                            <input type="text" name="name" required placeholder="Enter full name of candidate">
+                            <label>Full Name *</label>
+                            <input type="text" name="name" required placeholder="">
                         </div>
+                        
+                        <!-- Column 1 -->
                         <div class="form-group">
-                            <label>Father Name *</label>
-                            <input type="text" name="fatherName" required placeholder="Enter Father Name">
+                            <label>Designation *</label>
+                            <input type="text" name="designation" required placeholder="">
                         </div>
-                        <div class="form-group">
-                            <label>Mother Name *</label>
-                            <input type="text" name="motherName" required placeholder="Enter Mother Name">
-                        </div>
-                        <div class="form-group">
-                            <label>Aadhar number *</label>
-                            <input type="text" name="aadharNo" required placeholder="Enter Aadhar number">
-                        </div>
-                        <div class="form-group">
-                            <label>Date of Birth *</label>
-                            <input type="date" name="dob" required style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;">
-                        </div>
-                        <div class="form-group">
-                            <label>Mobile number *</label>
-                            <input type="text" name="mobileNo" required placeholder="Enter Mobile number">
-                        </div>
-                        <div class="form-group">
-                            <label>Registration Type (Designation) *</label>
-                            <select name="designation" required style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;">
-                                <option value="">------Select Registration Type------</option>
-                                <option value="RMP Doctor">RMP Doctor</option>
-                                <option value="BAMS">BAMS</option>
-                                <option value="BHMS">BHMS</option>
-                                <option value="BUMS">BUMS</option>
-                                <option value="BNYS">BNYS</option>
-                                <option value="BPT (Physiotherapist)">BPT (Physiotherapist)</option>
-                                <option value="DMLT Professional">DMLT Professional</option>
-                                <option value="Lab Technician">Lab Technician</option>
-                                <option value="Pharmacist">Pharmacist</option>
-                                <option value="Staff Nurse">Staff Nurse</option>
-                                <option value="ANM">ANM</option>
-                                <option value="GNM">GNM</option>
-                                <option value="Community Health Officer">Community Health Officer</option>
-                                <option value="Clinic Owner">Clinic Owner</option>
-                                <option value="Other healthcare Professional">Other healthcare Professional</option>
-                            </select>
-                        </div>
+                        
+                        <!-- Column 2 -->
                         <div class="form-group">
                             <label>State *</label>
-                            <select name="state" required style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;">
-                                <option value="">------Select State------</option>
-                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                                <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                <option value="Assam">Assam</option>
-                                <option value="Bihar">Bihar</option>
-                                <option value="Chandigarh">Chandigarh</option>
-                                <option value="Chhattisgarh">Chhattisgarh</option>
-                                <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
-                                <option value="Daman and Diu">Daman and Diu</option>
-                                <option value="Delhi">Delhi</option>
-                                <option value="Goa">Goa</option>
-                                <option value="Gujarat">Gujarat</option>
-                                <option value="Haryana">Haryana</option>
-                                <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                                <option value="Jharkhand">Jharkhand</option>
-                                <option value="Karnataka">Karnataka</option>
-                                <option value="Kerala">Kerala</option>
-                                <option value="Ladakh">Ladakh</option>
-                                <option value="Lakshadweep">Lakshadweep</option>
-                                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                <option value="Maharashtra">Maharashtra</option>
-                                <option value="Manipur">Manipur</option>
-                                <option value="Meghalaya">Meghalaya</option>
-                                <option value="Mizoram">Mizoram</option>
-                                <option value="Nagaland">Nagaland</option>
-                                <option value="Odisha">Odisha</option>
-                                <option value="Puducherry">Puducherry</option>
-                                <option value="Punjab" selected>Punjab</option>
-                                <option value="Rajasthan">Rajasthan</option>
-                                <option value="Sikkim">Sikkim</option>
-                                <option value="Tamil Nadu">Tamil Nadu</option>
-                                <option value="Telangana">Telangana</option>
-                                <option value="Tripura">Tripura</option>
-                                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                <option value="Uttarakhand">Uttarakhand</option>
-                                <option value="West Bengal">West Bengal</option>
-                            </select>
+                            <input type="text" name="state" required placeholder="e.g. Punjab, Delhi">
                         </div>
+                        
+                        <!-- Column 1 -->
                         <div class="form-group">
-                            <label>Validity Date (e.g. 5 Years or Lifetime) *</label>
-                            <input type="text" name="validity" required value="<?= date('d-M-Y', strtotime('+5 years')) ?>">
+                            <label>Validity</label>
+                            <input type="text" name="validity" placeholder="e.g. Lifetime, Dec 2028">
                         </div>
-                        <div class="form-group" style="grid-column: span 2;">
-                            <label>Residential Address *</label>
-                            <textarea name="address" rows="3" required placeholder="Enter Residential Address" style="width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: #fafafa;"></textarea>
-                        </div>
+                        
+                        <!-- Column 2 -->
                         <div class="form-group">
                             <label>Show on Website</label>
                             <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
                                 <input type="checkbox" name="show_on_website" id="add_show_on_website" value="1" checked style="width: auto;">
-                                <label for="add_show_on_website" style="margin: 0; font-weight: normal; cursor: pointer;">Show on homepage leaders grid</label>
+                                <label for="add_show_on_website" style="margin: 0; font-weight: normal; cursor: pointer;">Tick to show on user side</label>
                             </div>
                         </div>
+                        
+                        <!-- Column 1 -->
                         <div class="form-group">
                             <label>Upload Photo (Optional)</label>
                             <input type="file" name="photo" accept="image/*">
                         </div>
                     </div>
                     <div style="margin-top: 20px; display: flex; gap: 10px;">
-                        <button type="submit" name="add_member" class="btn btn-green"><i class="fas fa-plus"></i> Add Member</button>
+                        <button type="submit" name="add_member" class="btn btn-red"><i class="fas fa-save"></i> Save Member</button>
                         <button type="button" class="btn btn-gray" onclick="toggleAddMemberForm()">Cancel</button>
                     </div>
                 </form>
