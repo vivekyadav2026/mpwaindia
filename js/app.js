@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Render Leaders on Team Page (All)
                 if (dynamicLeadersTeam) {
-                    dynamicLeadersTeam.innerHTML = otherLeaders.map(m => `
+                    dynamicLeadersTeam.innerHTML = members.map(m => `
                         <div class="leader-card">
                             <img src="${m.photo || 'assets/images/team_leader_1781000276252.png'}" alt="Leader" class="leader-img-small">
                             <h4>${m.name}</h4>
